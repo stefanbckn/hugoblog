@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Goals on BCKN</title>
+    <link>/tags/goals/</link>
+    <description>BCKN (Goals)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+      
+
+      
+    
+
+    
+    <lastBuildDate>Tue, 09 Feb 2021 15:21:01 +0100</lastBuildDate>
+    
+    <atom:link href="/tags/goals/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Budgetteren is saai</title>
+      <link>/2021/02/09/Budgetteren%20is%20saai/</link>
+      <pubDate>Tue, 09 Feb 2021 15:21:01 +0100</pubDate>
+      
+      <guid>/2021/02/09/Budgetteren%20is%20saai/</guid>
+      <description>&lt;p&gt;Budgetteren is saai en beperkt je om te genieten van het leven. Dat is vaak de eerste reactie als je iemand vertelt over je eigen budget. Niets is minder waar.&lt;/p&gt;
+&lt;p&gt;Een budget zorgt er net voor dat je jouw prioriteiten op een rijtje hebt en dat je op elk moment weet wat je met je geld gaat aanvangen.
+Maar hoe pak je de leuke zaken aan? Die foliekes, die kleine (of grotere) verwendingetjes? Daarvoor heb je de &lt;strong&gt;Wish Farm&lt;/strong&gt;. Het gaat over optionele uitgaven.&lt;/p&gt;
+&lt;h3 id=&#34;de-wat-de-wish-farm&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#de-wat-de-wish-farm&#34;&gt;
+        ##
+    &lt;/a&gt;
+    De wat? De Wish Farm!
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Na het budgetteren voor al je rekeningen en toekomstige uitgaven (&lt;em&gt;true expenses&lt;/em&gt;) volgt jouw eigen wensenlijst. Deze &lt;em&gt;Wish List&lt;/em&gt; kan je perfect bijhouden in &lt;a href=&#34;https://ynab.com/referral/?ref=nK4-awM84GDPqxy7&amp;amp;utm_source=customer_referral&#34;&gt;YNAB (Referral)&lt;/a&gt;. Het enige dat je hiervoor nodig hebt zijn 2 categorie groepen; Je &lt;em&gt;Wish List&lt;/em&gt; en je &lt;em&gt;Wish Farm&lt;/em&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;wish-list&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#wish-list&#34;&gt;
+        ###
+    &lt;/a&gt;
+    Wish List
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;Op de &lt;em&gt;Wish List&lt;/em&gt; plaats je al de zaken waarvoor je geld op zij wil zetten. Een item op deze lijst moet onderzocht zijn naar prijs en ingedeeld worden in S, M of L (small, medium &amp;amp; large). Je zal merken dat de &lt;em&gt;Wish List&lt;/em&gt; snel redelijk groot kan worden. Hoe kies je nu welke categorie je eerst gaat budgetteren? Prioritering!&lt;/p&gt;
+&lt;p&gt;{% capture notice-waarschuwing %}
+&lt;strong&gt;Opmerking:&lt;/strong&gt;&lt;br /&gt;
+In de &lt;em&gt;Wish List&lt;/em&gt; zie je geen gebudgetteerd geld en er worden geen YNAB doelen aangemaakt. De &lt;em&gt;Wish List&lt;/em&gt; is in weze de &lt;em&gt;home of unfunded ideas&lt;/em&gt;. Al je ideeën zonder dat het een rechtstreekse invloed heeft op je budget. Een backlog als het ware.
+{% endcapture %}&lt;/p&gt;
+&lt;div class=&#34;notice--warning&#34;&gt;{{ notice-waarschuwing | markdownify }}&lt;/div&gt;
+&lt;h4 id=&#34;wish-farm&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#wish-farm&#34;&gt;
+        ###
+    &lt;/a&gt;
+    Wish Farm
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;De &lt;em&gt;Wish Farm&lt;/em&gt; zorgt ervoor dat je foliekes gebudgetteerd geraken. Je kan  maar 3 wensen tegelijk in de &lt;em&gt;Wish Farm&lt;/em&gt; plaatsen en telkens maar van 1 grootte (S, M of L). Wat de grootte van S, M en L is bepaal je uiteraard volledig zelf.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/wishfarm/wishfarm.png&amp;quot; alt=&amp;ldquo;De Wish List en Wish Farm in je budget.&amp;rdquo; caption=&amp;ldquo;De Wish List en Wish Farm in je budget.&amp;rdquo; %}&lt;/p&gt;
+&lt;h5 id=&#34;hoe-werkt-het&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#hoe-werkt-het&#34;&gt;
+        ####
+    &lt;/a&gt;
+    Hoe werkt het?
+&lt;/div&gt;
+&lt;/h5&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Kies je wensen&lt;br /&gt;
+Zoals eerder verteld,1 wens per grootte. Een wens met onderzocht zijn en een YNAB doel hebben. Welke items je kiest om te budgetteren is volledig aan jou.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Spaar voor je doel 💰&lt;br /&gt;
+Zet elke maand de nodige fondsen op zij voor je wensen.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Guilt-Free Spending 💸&lt;br /&gt;
+Eens je het doel bereikt hebt kan je zonder verpinken je wens in vervulling laten gaan.
+Als je de uitgave in YNAB ingeeft, kies dan de categorie in je “normale” budget.&lt;br /&gt;
+Bijvoorbeeld: wij sparen momenteel voor zonnepanelen en eens we de uitgave ingeven in YNAB zal dit eerder in de categorie &lt;strong&gt;Onderhoud Huis&lt;/strong&gt; zijn. Hierdoor kunnen we de zonnepanelen categorie verwijderen en houden we toch de uitgaven bij voor de rapportage.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Budget Template</title>
+      <link>/2021/01/28/Budget%20template/</link>
+      <pubDate>Thu, 28 Jan 2021 11:51:01 +0100</pubDate>
+      
+      <guid>/2021/01/28/Budget%20template/</guid>
+      <description>&lt;p&gt;Hoe pak ik dat nu van dag tot dag aan? Hoe weet ik of ik mijn prioriteiten volg in mijn budget?
+Een budget template helpt je met het beheren van je budget. Door al je prioriteiten in categorieën te verdelen volgens de YNAB regels heb je een eerste stap gezet in het maken van een budget template.
+Met de volgende stappen gaan we er voor zorgen dat alles duidelijk en overzichtelijk wordt.&lt;/p&gt;
+&lt;p&gt;YNAB heeft zelf volgende video en &lt;a href=&#34;https://www.youneedabudget.com/how-to-create-a-budget-template/&#34;&gt;blogpost&lt;/a&gt; die je kan gebruiken.&lt;/p&gt;
+&lt;p&gt;{% include video id=&amp;ldquo;BjcYySRKc1A&amp;rdquo; provider=&amp;ldquo;youtube&amp;rdquo; %}&lt;/p&gt;
+&lt;h3 id=&#34;1-geef-elke-categorie-een-doel&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#1-geef-elke-categorie-een-doel&#34;&gt;
+        ##
+    &lt;/a&gt;
+    1. Geef elke categorie een doel
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Je hebt al je prioriteiten op een rij. Je kent je maandelijkse kosten. Je hebt je ware uitgaven bekeken. Al die categorieën kan je nu voorzien van een doel.
+Je begint het beste met je maandelijkse doelen. Wij moeten bijvoorbeeld elke maand onze lening betalen. Dus maandelijks zorgen we ervoor dat het juiste bedrag hiervoor klaar staat. Hiervoor hebben we een &lt;em&gt;Needed for Spending&lt;/em&gt; doel aangemaakt dat elke maand verwacht dat er een bepaald bedrag klaar staat om uit te geven. Je kan ervoor kiezen om een specifieke datum te kiezen.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/budgettemplate/lening-doel.png&amp;quot; alt=&amp;ldquo;Lening categorie met een doel&amp;rdquo; caption=&amp;ldquo;Lening categorie met een doel.&amp;rdquo; %}&lt;/p&gt;
+&lt;p&gt;Ook voor je &lt;em&gt;true expenses&lt;/em&gt; kan je doelen aanmaken. Je hebt hiervoor verschillende mogelijkheden.
+&lt;a href=&#34;https://ynab.com/referral/?ref=nK4-awM84GDPqxy7&amp;amp;utm_source=customer_referral&#34;&gt;YNAB (Referral)&lt;/a&gt; heeft  5 verschillende doel types. 3 doelen om geld uit te geven en 2 doelen i.v.m. kredietkaarten.
+De 3 doelen om geld uit te geven (of te sparen) zijn de volgende&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;Needed for Spending&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Target Savings Balance&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Monthly Savings Builder&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&#34;needed-for-spending&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#needed-for-spending&#34;&gt;
+        ###
+    &lt;/a&gt;
+    &lt;em&gt;Needed for Spending&lt;/em&gt;
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;Winkelen, dokterskosten, apotheek, uit eten,… Al je maandelijkse kosten waarbij je geld gaat uitgeven. Je kan dit ook gebruiken om Kerstmis te budgetteren. Met dit doel ga je een bepaald bedrag budgetteren met de mogelijkheid om geld te spenderen zonder dat dit invloed heeft op het bedrag.&lt;/p&gt;
+&lt;p&gt;Bijvoorbeeld: Je wil voor Kerstmis een budget van €600 hebben voor cadeautjes en in juli vind je het perfecte cadeau. Je kan dan perfect vanuit je Kerstmis categorie het cadeau kopen zonder dat je extra geld moet opzij leggen om je doel van €600 te behalen tegen december.&lt;/p&gt;
+&lt;p&gt;{% capture notice-nieuwemaand %}
+&lt;strong&gt;Nieuwe maand&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Al het geld dat op het einde van de maand overblijft in een categorie met &lt;em&gt;Needed for Spending&lt;/em&gt; als doeltype zal meetellen (&lt;strong&gt;roll over&lt;/strong&gt;) in de volgende maand.
+Bijvoorbeeld: Je winkelen categorie bevat op het einde van de maand nog €100. Deze €100 zal meegaan naar de volgende maand in de winkelen categorie. Als je normaal €500 budgetteert om te winkelen dan zal je in de nieuwe maand maar €400 moeten budgetteren.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bemerking&lt;/strong&gt;: Dit zie je enkel als de nieuwe maand effectief begonnen is (en niet op de laatste dag van de vorige maand).
+{% endcapture %}&lt;/p&gt;
+&lt;div class=&#34;notice--warning&#34;&gt;{{ notice-nieuwemaand | markdownify }}&lt;/div&gt;
+&lt;h4 id=&#34;target-savings-balance&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#target-savings-balance&#34;&gt;
+        ###
+    &lt;/a&gt;
+    &lt;em&gt;Target Savings Balance&lt;/em&gt;
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;Met dit doel kan je een bedrag bereiken tegen een bepaalde datum. Als je geld uit deze categorie haalt dan moet je het aanvullen om je doel te halen. Een voorbeeld dat vaak gebruikt wordt is een &lt;em&gt;emergeny fund&lt;/em&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;monthly-savings-builder&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#monthly-savings-builder&#34;&gt;
+        ###
+    &lt;/a&gt;
+    &lt;em&gt;Monthly Savings Builder&lt;/em&gt;
+&lt;/div&gt;
+&lt;/h4&gt;
+&lt;p&gt;Dit doel kan je gebruiken om maandelijks te sparen zonder een specifiek einddoel. Bijvoorbeeld een grotere uitgave zoals een nieuw dak, een nieuwe auto,… Iets waarvan je weet dat je dit ooit gaat moeten betalen maar de exacte datum niet van kan inschatten.&lt;/p&gt;
+&lt;p&gt;{% capture notice-waarschuwing %}
+&lt;strong&gt;Opgelet&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Zowel bij de &lt;em&gt;By Date&lt;/em&gt; als bij de &lt;em&gt;Target Savings Balance (with Date selected)&lt;/em&gt; doelen is de *target-*maand inbegrepen in de maandelijkse berekening. YNAB verwacht dat je budgetteert tegenover het doel in de gegeven maand. Als je het geld nodig hebt in een specifieke maand dan kies je er beter voor om de maand voordat je het geld nodig hebt te kiezen als eind datum.
+{% endcapture %}&lt;/p&gt;
+&lt;div class=&#34;notice--warning&#34;&gt;{{ notice-waarschuwing | markdownify }}&lt;/div&gt;
+&lt;h3 id=&#34;2-tidy-up&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#2-tidy-up&#34;&gt;
+        ##
+    &lt;/a&gt;
+    2. Tidy up
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Nu je aan elke categorie een doel hebt toegevoegd kan je jouw budget verder personaliseren.
+Een eerste stap die je kan uitvoeren is om aan elke categorie de datum te hangen. (Denk weer aan de lening en geef in de naam de specifieke datum mee). Je kan dit enkel voor jouw maandelijkse doelen doen maar ik voeg aan mijn &lt;em&gt;true expenses&lt;/em&gt; ook de maand toe waarin ze betaald moeten worden.
+Na elk doel te voorzien van datum kan je ze rangschikken van eerst naar laatst.
+Behalve een doel kan je ook het bedrag toevoegen.
+Verder kan je jouw budget wat speels houden door aan elke categorie een emoji toe te voegen.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/budgettemplate/lening-categorie.png&amp;quot; alt=&amp;ldquo;Lening categorie met datum, doel en emoji&amp;rdquo; caption=&amp;ldquo;Lening categorie met datum, doel en emoji.&amp;rdquo; %}&lt;/p&gt;
+&lt;h3 id=&#34;3-je-budget-template-is-klaar&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#3-je-budget-template-is-klaar&#34;&gt;
+        ##
+    &lt;/a&gt;
+    3. Je budget template is klaar
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Nu dat je budget template op punt staat kan je perfect zien hoeveel je per maand nodig hebt om aan al je doelen te voldoen.
+Je zal een bedrag zien staan bij &lt;em&gt;underfunded&lt;/em&gt;, is dit realistisch? Als dit bedrag hoger is dan je inkomsten hoogstwaarschijnlijk niet. Het voordeel hier is dat je dit nu ten minste weet en de nodige aanpassingen kan maken. Wat is echt prioritair en wat kan ik eventueel laten.
+Zorg ervoor dat je budget klopt met jouw prioriteiten.&lt;/p&gt;
+&lt;h3 id=&#34;4-budget-away&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#4-budget-away&#34;&gt;
+        ##
+    &lt;/a&gt;
+    4. Budget away
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Eens je al de voorgaande stappen hebt uitgevoerd komt het leuke werk. Je hebt je loon gekregen en je kan budgetteren. Je kan dit op 2 manieren doen. Je kan per categorie of categoriegroep werken of je kan kijken naar het &lt;em&gt;Quick Budget&lt;/em&gt; menu en de &lt;em&gt;Underfunded&lt;/em&gt; knop gebruiken. Dit zorgt ervoor dat je geld in 1 keer gebudgetteerd wordt ten opzichte van jouw doelen en prioriteiten die je net in je budget template hebt bepaald.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/budgettemplate/quick-budget.png&amp;quot; alt=&amp;ldquo;Quick budget menu&amp;rdquo; caption=&amp;ldquo;Het Quick Budget menu.&amp;rdquo; %}&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

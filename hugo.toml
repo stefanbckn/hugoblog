@@ -1,3 +1,55 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://bckn.be/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'BCKN'
+theme = "anubis2"
+enableEmoji = true
+
+[params.author]
+name = "Stefan"
+email  = "stefan@bckn.be"
+location = "Belgium"
+
+[params]
+toc = false
+social = [
+	{ id = "github", url = "https://github.com/stefanbckn" },
+	{ id = "linkedin", url = "https://www.linkedin.com/stefanbocken" },
+	{ id = "bluesky", url = "https://bsky.app/profile/stefanbckn.bsky.social" },
+	{ id = "mastodon", url = "https://mastodon.social/@stefanbckn" }
+]
+
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/about/"
+weight = 2
+
+[[menu.main]]
+identifier = "tags"
+name = "Tags"
+url = "/tags/"
+weight = 3
+
+[[menu.main]]
+name = "Archive"
+identifier = "archive"
+url = "/posts/"
+weight = 4
+
+[[menu.main]]
+name = "Curriculum Vitae"
+identifier = "cv"
+url = "https://stefan.bckn.be"
+weight = 4
+
+[markup.goldmark.renderer]
+unsafe = true # true | false; Enable unsafe mode to have a better experience
+
+[markup.highlight]
+style = 'base16-snazzy' # Chroma style, find more at here: https://swapoff.org/chroma/playground/

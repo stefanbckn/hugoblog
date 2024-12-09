@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Terugblik on BCKN</title>
+    <link>/tags/terugblik/</link>
+    <description>BCKN (Terugblik)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+      
+        <managingEditor>stefan@bckn.be
+          
+            (Stefan)
+          
+        </managingEditor>
+      
+
+      
+    
+
+    
+    <lastBuildDate>Wed, 04 Jan 2023 10:11:01 +0100</lastBuildDate>
+    
+    <atom:link href="/tags/terugblik/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mijn loopjaar 2022</title>
+      <link>/2023/01/02/Mijn%20loopjaar%202022/</link>
+      <pubDate>Wed, 04 Jan 2023 10:11:01 +0100</pubDate>
+      <author>stefan@bckn.be (Stefan)</author>
+      <guid>/2023/01/02/Mijn%20loopjaar%202022/</guid>
+      <description>&lt;p&gt;Nu het nieuwe jaar is begonnen is het stilaan tijd om een keer terug te kijken naar 2022 en te overlopen wat ik gepresteerd heb.&lt;/p&gt;
+&lt;h3 id=&#34;3-wedstrijden&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#3-wedstrijden&#34;&gt;
+        ##
+    &lt;/a&gt;
+    3 wedstrijden
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Allereerst was er de Antwerp Park Run. Een nieuwe wedstrijd door de parken Park Groot Schijn, Ertbrugge, het gemeentepark Bremweide en het Rivierenhof. Zie [Antwerp Park Run]({% post_url 2022-01-26-Antwerp Park Run %}) voor de details.&lt;/li&gt;
+&lt;li&gt;Voor de zoveelste keer stond de Antwerp 10 miles op de planning. Een jaarlijkse terugkerende afspraak die ik in 2023 links ga laten liggen door de Rotterdam Marathon.&lt;/li&gt;
+&lt;li&gt;De tweede Antwerp Marathon. Jammer genoeg geen avond/nachteditie meer. Het resultaat viel me tegen zoals jullie al konden lezen in [2de marathon - 2de finish]({% post_url 2022-09-13-2de marathon - 2de finish %}).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;trainingsdoelen&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#trainingsdoelen&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Trainingsdoelen
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Via Strava kan je een wekelijks en een jaarlijks doel instellen. Voor 2022 stond dit op 30/35km per week en 1.500km op een jaar.
+Ik ben gestrand op 1.404,2km waar ik enorm trots op ben. Voor volgend jaar mik ik richting 2.000km (en een 40km per week).&lt;/p&gt;
+&lt;p&gt;{% include gallery %}&lt;/p&gt;
+&lt;h3 id=&#34;wat-brengt-2023&#34; &gt;
+&lt;div&gt;
+    &lt;a href=&#34;#wat-brengt-2023&#34;&gt;
+        ##
+    &lt;/a&gt;
+    Wat brengt 2023
+&lt;/div&gt;
+&lt;/h3&gt;
+&lt;p&gt;Momenteel staan er al twee wedstrijden gepland. Allereerst een halve marathon bij de tweede editie van de Antwerp Park Run (met een leuke tussenstop in het bosuilstadion dat in 1923 zijn 100-jarig bestaan viert). Daarnaast ga ik voor mijn derde marathon in Rotterdam waar ik &amp;ldquo;de mooiste&amp;rdquo; ga lopen.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

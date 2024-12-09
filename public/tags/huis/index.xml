@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Huis on BCKN</title>
+    <link>/tags/huis/</link>
+    <description>BCKN (Huis)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+      
+        <managingEditor>stefan@bckn.be
+          
+            (Stefan)
+          
+        </managingEditor>
+      
+
+      
+    
+
+    
+    <lastBuildDate>Mon, 12 Dec 2022 07:11:01 +0100</lastBuildDate>
+    
+    <atom:link href="/tags/huis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Op zoek naar een loodgieter</title>
+      <link>/2022/12/12/Op%20zoek%20naar%20een%20loodgieter/</link>
+      <pubDate>Mon, 12 Dec 2022 07:11:01 +0100</pubDate>
+      <author>stefan@bckn.be (Stefan)</author>
+      <guid>/2022/12/12/Op%20zoek%20naar%20een%20loodgieter/</guid>
+      <description>&lt;p&gt;Na onze laatste afrekening van Pidpa bleken we ineens veel meer verbruikt te hebben. Aangezien ons verbruik niet drastisch omhoog gegaan was tijdens het afgelopen jaar vermoedden we een lek.&lt;/p&gt;
+&lt;p&gt;Na een check van watermeterstanden, zonder op dat moment te verbruiken, was het duidelijk dat er effectief een lek is. Gisteren (zondag) ging ik op een fijne zoektocht in de kruipkelder. Eens in de kruipkelder was het al snel duidelijk waar het probleem is. Nu kunnen we dus op zoek naar een loodgieter.&lt;/p&gt;
+&lt;p&gt;{% include video id=&amp;ldquo;bTKyUFLj58I&amp;rdquo; provider=&amp;ldquo;youtube&amp;rdquo; %}&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

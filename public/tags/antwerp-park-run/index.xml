@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Antwerp Park Run on BCKN</title>
+    <link>/tags/antwerp-park-run/</link>
+    <description>BCKN (Antwerp Park Run)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+      
+        <managingEditor>stefan@bckn.be
+          
+            (Stefan)
+          
+        </managingEditor>
+      
+
+      
+    
+
+    
+    <lastBuildDate>Wed, 26 Jan 2022 10:11:01 +0100</lastBuildDate>
+    
+    <atom:link href="/tags/antwerp-park-run/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Antwerp Park Run 2022</title>
+      <link>/2022/01/26/Antwerp%20Park%20Run/</link>
+      <pubDate>Wed, 26 Jan 2022 10:11:01 +0100</pubDate>
+      <author>stefan@bckn.be (Stefan)</author>
+      <guid>/2022/01/26/Antwerp%20Park%20Run/</guid>
+      <description>&lt;p&gt;Afgelopen zondag was het de eerste editie van de Antwerp Park Run. De start was aan het vernieuwde sportcomplex in het park Groot Schijn. Het parcours liep naast het park Groot Schijn ook door het domein Ertbrugge, het gemeentepark Bremweide en voor de 20km ook door het Rivierenhof.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/antwerpparkrun/ParkRun-22-parcours_10k.jpg&amp;quot; alt=&amp;ldquo;Antwerp Park Run Parcours 10km&amp;rdquo; %}&lt;/p&gt;
+&lt;p&gt;Samen met Ewan heb ik deelgenomen aan de 10km omdat we zo ook via den Bosuil konden lopen.&lt;/p&gt;
+&lt;p&gt;{% include figure image_path=&amp;quot;/assets/images/antwerpparkrun/IMG_6122.jpeg&amp;quot; alt=&amp;ldquo;Ewan en ik op den bosuil&amp;rdquo; %}&lt;/p&gt;
+&lt;p&gt;Het was een meer dan geslaagde eerste editie en ik kom zeker terug.
+Onze tijd: 54:21.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
