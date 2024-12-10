@@ -4,11 +4,6 @@ categories:
   - lopen
 date: 2021-09-07 15:11:01 +0100
 excerpt: Zaterdag is het zover, dan loop ik de [Port of Antwerp Night Marathon](https://www.portofantwerpnightmarathon.com/nl/). EINDELIJK! Een extra jaar wachten, een extra jaar voorbereiding.
-header:
-  caption: ''
-  image_description: ''
-  overlay_filter: 0.5
-  overlay_image: /assets/images/readyornot/AntwerpNightMarathon.jpg
 tags:
   - lopen
   - marathon

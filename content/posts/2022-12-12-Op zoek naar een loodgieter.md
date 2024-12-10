@@ -13,4 +13,4 @@ Na onze laatste afrekening van Pidpa bleken we ineens veel meer verbruikt te heb
 
 Na een check van watermeterstanden, zonder op dat moment te verbruiken, was het duidelijk dat er effectief een lek is. Gisteren (zondag) ging ik op een fijne zoektocht in de kruipkelder. Eens in de kruipkelder was het al snel duidelijk waar het probleem is. Nu kunnen we dus op zoek naar een loodgieter.
 
-{% include video id="bTKyUFLj58I" provider="youtube" %}
+{{< youtube bTKyUFLj58I >}}
