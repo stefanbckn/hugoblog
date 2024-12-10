@@ -1,7 +1,7 @@
 baseURL = 'https://bckn.be/'
 languageCode = 'en-us'
 title = 'BCKN'
-theme = "anubis2"
+theme = "hugo-theme-anubis2"
 enableEmoji = true
 
 [params.author]
