@@ -1,6 +1,5 @@
 [build.environment]
 HUGO_VERSION = "0.139.3"
-TZ = "Europe/Brussels"
 
 [build]
 publish = "public"
