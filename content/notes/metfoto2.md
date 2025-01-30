@@ -4,8 +4,8 @@ tags:
   - test
   - hugo
   - echofeed
-title: Met foto
-url: /2025/01/30/Metfoto/
+title: Met foto - poging 2
+url: /2025/01/30/Metfoto2/
 type: notes
 ---
 Let's see what echofeed makes of this. #echofeed
