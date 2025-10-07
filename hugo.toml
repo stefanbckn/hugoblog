@@ -15,8 +15,7 @@ social = [
 	{ id = "github", url = "https://github.com/stefanbckn" },
 	{ id = "linkedin", url = "https://www.linkedin.com/in/stefanbocken" },
 	{ id = "bluesky", url = "https://bsky.app/profile/stefanbckn.bsky.social" },
-	{ id = "mastodon", url = "https://mastodon.social/@stefanbckn" },
-	{ id = "twitch", url = "https://www.twitch.tv/bockrider" }
+	{ id = "mastodon", url = "https://mastodon.social/@stefanbckn" }
 ]
 
 [[menu.main]]
