@@ -61,7 +61,11 @@ unsafe = true # true | false; Enable unsafe mode to have a better experience
 style = 'base16-snazzy' # Chroma style, find more at here: https://swapoff.org/chroma/playground/
 
 [params.SplitbeeAnalytics]
+enabled = false
+
+[params.SimpleAnalytics]
 enabled = true
+
 
 [outputs]
 home = ['html', 'rss', 'notes']
