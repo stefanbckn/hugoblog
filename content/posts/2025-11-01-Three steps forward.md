@@ -1,11 +1,13 @@
 ---
 layout: post
 title:  "Three steps forward"
-date:   2025-11-01 10:48:14 +0100
+date:   '2025-11-01T09:48:14+0100'
 categories: persoonlijk
-tags: Nierkanker
+tags: 
+	- Nierkanker
+	- gezondheid
+slug: threestepsforward
 ---
-# Three steps forward...
 ... two steps back. Of zo voelt het toch.
 
 Eerst het goede nieuws: De tumor is kwaadaardig, maar vermoedelijk gaat het om heldercellig niercelkanker. De tumor is nog doorgestuurd naar UZ Leuven om dat te bevestigen, maar voorlopig lijkt het dus op de “beste” variant van de kwaadaardige soorten. Heldercellig niercelkanker heeft een levensverwachting na tien jaar van 92%. Hopelijk heeft de patholoog het dus bij het rechte eind.
