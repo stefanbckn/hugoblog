@@ -13,6 +13,6 @@ De tijd tussen scan en consult
 Een gevoel van onrust en ongeduld
 Eén zin, zoveel mogelijkheden
 Waarom er aandacht aan besteden
-We zien morgen hoe de uroloog het verslag onthult
+We zien morgen wel hoe de uroloog het verslag onthult
 
 <small>You fall, you get up, you never let up</small>
