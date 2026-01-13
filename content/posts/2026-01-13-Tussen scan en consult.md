@@ -9,10 +9,9 @@ tags:
   - gezondheid
   - limerick
 ---
-De tijd tussen scan en consult
-Een gevoel van onrust en ongeduld
-Eén zin, zoveel mogelijkheden
-Waarom er aandacht aan besteden
-We zien morgen wel hoe de uroloog het verslag onthult
-
-<small>You fall, you get up, you never let up</small>
+<p>De tijd tussen scan en consult <br/>
+Een gevoel van onrust en ongeduld <br/>
+Eén zin, zoveel mogelijkheden <br/>
+Waarom er aandacht aan besteden <br/>
+We zien morgen wel hoe de uroloog het verslag onthult <br/>
+</p>
