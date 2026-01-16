@@ -14,5 +14,7 @@ Naast dit positief nieuws voel ik me over het algemeen ook positief. Behalve wan
 
 Dat maakt dat de feestdagen niet altijd fijn zijn.
 
+<br /><br />
+
 --
 <small>You fall, you get up. You never let up!</small>
