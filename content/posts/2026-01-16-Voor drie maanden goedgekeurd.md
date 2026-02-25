@@ -21,7 +21,7 @@ Met een bang hartje ging ik woensdag dan ook naar de uroloog. Gelukkig werd ik h
 Verder was de scan volledig in orde. Resultaat: Voor drie maanden goedgekeurd! 🥳
 
 
-<br /><br />
+<br />
 
 --
 <small>You fall, you get up. You never let up!</small>
