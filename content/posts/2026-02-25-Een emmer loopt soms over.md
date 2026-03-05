@@ -20,7 +20,7 @@ Eén zin van mezelf is toen blijven hangen:
 
 Ik begin niet van nul, de emmer zit gewoon sneller vol. Ik merk het bij nieuwsberichten. Social media. Gesprekken. Zo'n traject, hoe positief ook, kruipt toch meer in je kleren dan je denkt. Meer dan ik zou willen.
 
-Actheraf gezien had ik misschien meer tijd voor mezelf moeten nemen en niet drie weken na de operatie weer beginnen werken.
+Achteraf gezien had ik misschien meer tijd voor mezelf moeten nemen en niet drie weken na de operatie weer beginnen werken.
 
 Soms loopt een emmer gewoon over én daar is niets mis mee.
 
