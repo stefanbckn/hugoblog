@@ -1,5 +1,5 @@
 ---
-date: 2026-04-16 20:14:04 +0100
+date: 2026-04-16 20:14:04 +0200
 url: microblogging
 type: notes
 ---
