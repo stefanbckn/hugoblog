@@ -8,5 +8,5 @@ categories:
 Test
 
 
-![Tekst 1](img/notes/IMG_4702.jpeg)
-![Tekst 2](img/notes/IMG_4701.jpeg)
+![Tekst 1](/img/notes/IMG_4702.jpeg)
+![Tekst 2](/img/notes/IMG_4701.jpeg)
