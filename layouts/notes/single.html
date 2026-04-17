@@ -1,15 +1,52 @@
 {{ define "main" }}
 
-<article class="note-single">
+<article class="post h-entry">
+        <div class="post-header">
+            <header>
+                {{ $random := (md5 .Title) }}
+                {{ $iconPath := printf "%sicon.svg" .File.Dir }}
+                {{ if fileExists $iconPath }}
+                    <style>
+                        .post-icon-{{ $random }}::before {
+                            display: inline-block;
+                            content: '';
+                            background: url("/{{ $iconPath }}");
+                            width: 1.2em;
+                            height: 1.2em;
+                            background-size: auto 100%;
+                            vertical-align: text-bottom;
+                            margin-right: 4px;
+                        }
+                    </style>
+                {{ end }}
+                <h1 class="p-name post-title{{ if .Params.favorite }} favorite{{end}}{{ if .Params.draft }} draft{{end}}">{{ .Date.Format "02 Jan 2006 15:04" }}</h1>
+                {{ partial "post-language-switcher.html" . }}
+            </header>
+            {{ partial "notes-info.html" . }}
+        </div>
+        {{ partial "toc.html" .}}
+        <div class="content e-content">
+            {{ .Content }}
+        </div>
+    </article>
 
-  <div class="note-meta">
-    {{ .Date.Format "Monday, 02 Jan 2006 15:04" }}
-  </div>
+    {{ $params := partial "params-helper.html" . }}
+    {{ $readNextPosts := $params.readNextPosts }}
+    {{ if gt $readNextPosts 0 }}
+        {{ $related := (where (site.RegularPages.Related .) "Params.private" "ne" true) | first $readNextPosts }}
+        {{ with $related }}
+            <h3 class="read-next-title noselect">{{ i18n "readNext" }}</h3>
+            <ul class="read-next-posts noselect">
+                {{ range . }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                {{ end }}
+            </ul>
+        {{ end }}
+    {{ end }}
 
-  <div class="note-content">
-    {{ .Content }}
-  </div>
+    {{ partial "feat-comments/comments.html" . }}
 
-</article>
+    
+
 
 {{ end }}
