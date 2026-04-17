@@ -1,5 +1,5 @@
 ---
-date: '2025-12-29T11:48:14+01:00'
+date: 2025-12-29T11:48:14
 title: 'Toch nog last'
 slug: tochnoglast
 categories:

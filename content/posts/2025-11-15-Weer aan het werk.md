@@ -1,5 +1,5 @@
 ---
-date: '2025-11-15T11:48:14+01:00'
+date: 2025-11-15T11:48:14
 title: 'Weer aan het werk'
 slug: weeraanhetwerk
 categories:

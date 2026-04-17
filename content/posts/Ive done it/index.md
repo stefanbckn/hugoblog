@@ -2,7 +2,7 @@
 categories:
   - persoonlijk
   - lopen
-date: 2021-09-17 09:11:01 +0100
+date: 2021-09-17T09:11:01
 excerpt: Vorige zaterdag heb ik mijn eerste marathon gelopen. Zoals bij vele marathonlopers ging het ook bij mij goed tot km 30. Tot daar het goede nieuws.
 tags:
   - lopen

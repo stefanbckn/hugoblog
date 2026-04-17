@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2021-03-15 17:21:01 +0100
+date: 2021-03-15T17:21:01
 excerpt: Sinds kort lezen wij twee verhaaltjes voor het slapen gaan. Eentje door de mama en eentje door de papa.
 header:
   caption: 'Photo credit: **Frank Adam**'

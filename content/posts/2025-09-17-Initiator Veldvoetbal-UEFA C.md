@@ -1,5 +1,5 @@
 ---
-date: '2025-09-17T11:50:59+01:00'
+date: 2025-09-17T11:50:59
 title: 'Initiator Veldvoetbal / UEFA C?'
 slug: uefac
 categories:

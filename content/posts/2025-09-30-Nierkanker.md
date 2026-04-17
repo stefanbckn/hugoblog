@@ -1,5 +1,5 @@
 ---
-date: '2025-09-30T07:50:59+01:00'
+date: 2025-09-30T07:50:59
 title: 'Nierkanker'
 slug: nierkanker
 categories:

@@ -1,5 +1,5 @@
 ---
-date: 2026-04-16 20:14:04 +0200
+date: 2026-04-16T20:14:04
 url: /notes/2026/04/16/microblogging/
 type: notes
 categories:

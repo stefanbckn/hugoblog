@@ -1,5 +1,5 @@
 ---
-date: '2025-11-10T09:48:14+01:00'
+date: 2025-11-10T09:48:14
 title: 'De wondere wereld van de thuisverpleging'
 slug: dewonderewereldvanthuisverpleging
 categories:

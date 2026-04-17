@@ -1,5 +1,5 @@
 +++
-date = '2024-12-09T12:18:42+01:00'
+date = 2024-12-09T12:18:42
 draft = true
 title = 'Hello Hugo'
 +++

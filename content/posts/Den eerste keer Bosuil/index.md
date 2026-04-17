@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2021-07-17 21:11:01 +0100
+date: 2021-07-17T21:11:01
 excerpt: Een oefenmatch. Vrije verkoop van tickets. Ideaal om Emiel een keertje mee te nemen naar den Antwerp. Een heel gedoe om tickets te kopen, een overdrukke webshop, accounts aanmaken met de GSM-nr van de bomma, foto’s nemen van een Kids-ID.
 tags:
   - RAFC

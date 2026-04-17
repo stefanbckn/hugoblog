@@ -1,5 +1,5 @@
 ---
-date: '2026-01-16T10:48:14+01:00'
+date: 2026-01-16T10:48:14
 title: 'Voor drie maanden goedgekeurd'
 slug: Voordriemaandengoedgekeurd
 categories:

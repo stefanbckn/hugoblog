@@ -2,7 +2,7 @@
 categories:
   - persoonlijk
   - lopen
-date: 2023-01-04 10:11:01 +0100
+date: 2023-01-04T10:11:01
 excerpt: Nu het nieuwe jaar is begonnen is het stilaan tijd om een keer terug te kijken naar 2022 en te overlopen wat ik gepresteerd heb.
 tags:
   - lopen

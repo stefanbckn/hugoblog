@@ -1,5 +1,5 @@
 ---
-date: '2025-10-02T11:50:59+01:00'
+date: 2025-10-02T11:50:59
 title: 'Wat een week!'
 slug: wateenweek
 categories:

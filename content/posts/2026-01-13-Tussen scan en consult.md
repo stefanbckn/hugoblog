@@ -1,5 +1,5 @@
 ---
-date: '2026-01-13T11:48:14+01:00'
+date: 2026-01-13T11:48:14
 title: 'Tussen scan en consult'
 slug: tussenscanenconsult
 categories:

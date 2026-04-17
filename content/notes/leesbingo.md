@@ -1,5 +1,5 @@
 ---
-date: 2026-04-16 06:40:36 +0100
+date: 2026-04-16T06:40:36
 url: /notes/2026/04/16/leesbingo/
 type: notes
 categories:

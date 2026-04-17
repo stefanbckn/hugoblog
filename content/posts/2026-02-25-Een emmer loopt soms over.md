@@ -1,5 +1,5 @@
 ---
-date: '2026-02-25T11:48:14+01:00'
+date: 2026-02-25T11:48:14
 title: 'Een emmer loopt soms over'
 slug: eenemmerlooptsomsover
 categories:

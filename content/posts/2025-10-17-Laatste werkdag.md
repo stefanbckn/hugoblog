@@ -1,5 +1,5 @@
 ---
-date: '2025-10-17T07:50:59+01:00'
+date: 2025-10-17T07:50:59
 title: 'Laatste werkdag'
 slug: laatstewerkdag
 categories:

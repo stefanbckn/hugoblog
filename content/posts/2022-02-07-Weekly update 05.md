@@ -2,7 +2,7 @@
 categories:
   - persoonlijk
   - lopen
-date: 2022-02-07 16:11:01 +0100
+date: 2022-02-07T16:11:01
 tags:
   - lopen
   - weekly update

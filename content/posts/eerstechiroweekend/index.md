@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2022-10-17 19:11:01 +0100
+date: 2022-10-17T19:11:01
 excerpt: Afgelopen weekend is Emiel voor het eerst op Chiro weekend vertrokken. Met een klein hartje en al weken de nodige stress brachten we hem vrijdagavond met twee chirovriendjes naar Chiro Klinker in Hoboken.
 tags:
   - Emiel

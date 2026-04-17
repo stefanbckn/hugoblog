@@ -1,5 +1,5 @@
 ---
-date: 2026-04-16 08:40:36 +0100
+date: 2026-04-16T08:40:36
 url: /notes/2026/04/16/yeah/
 type: notes
 categories:

@@ -1,5 +1,5 @@
 ---
-date: '2025-11-01T09:48:14+01:00'
+date: 2025-11-01T09:48:14
 title: 'Three Steps Forward'
 slug: threestepsforward
 categories:

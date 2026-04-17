@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2021-01-08 13:51:01 +0100
+date: 2021-01-08T13:51:01
 excerpt: Samen met oma & opa op wandeling in de Kalmthoutse Heide.
 tags:
   - nieuwjaar

@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2021-04-11 16:11:01 +0100
+date: 2021-04-11T16:11:01
 excerpt: Om de 100ste verjaardag van [K. Boechoutse V.V.](https://www.boechoutsevv.be) te vieren werd er op de 100ste dag van het jaar de Wandeling van de Eeuw georganiseerd.
 tags:
   - wandelen

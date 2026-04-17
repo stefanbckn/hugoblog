@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2022-01-20 10:11:01 +0100
+date: 2022-01-20T10:11:01
 excerpt: Normaal gingen we eind 2020 met ons twee naar Disneyland Parijs om een keer de Disney kerstsfeer op te snuiven. Een of andere wereldwijde pandemie besloot iets anders.
 tags:
   - vakantie

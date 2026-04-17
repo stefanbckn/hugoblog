@@ -1,5 +1,5 @@
 ---
-date: '2024-12-19T16:50:59+01:00'
+date: 2024-12-19T16:50:59
 title: 'Welkom in De Toekomst!?'
 slug: welkomindetoekomst
 categories:

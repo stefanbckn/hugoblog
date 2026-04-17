@@ -1,7 +1,7 @@
 ---
 categories:
   - budget
-date: 2020-11-25 18:30:36 +0100
+date: 2020-11-25T18:30:36
 tags:
   - budget
   - ynab

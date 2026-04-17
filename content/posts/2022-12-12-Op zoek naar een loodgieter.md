@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2022-12-12 07:11:01 +0100
+date: 2022-12-12T07:11:01
 excerpt: Na onze laatste afrekening van Pidpa bleken we ineens veel meer verbruikt te hebben. Aangezien ons verbruik niet drastisch omhoog gegaan was tijdens het afgelopen jaar vermoeden we een lek.
 tags:
   - Huis

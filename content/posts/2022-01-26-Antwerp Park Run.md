@@ -2,7 +2,7 @@
 categories:
   - persoonlijk
   - lopen
-date: 2022-01-26 10:11:01 +0100
+date: 2022-01-26T10:11:01
 tags:
   - lopen
   - Antwerp Park Run

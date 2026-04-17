@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2022-07-01 19:11:01 +0100
+date: 2022-07-01T19:11:01
 excerpt: Eindelijk, het vaderklapweekend kon door gaan! We hebben er sinds 2020 op moeten wachten en na al die tijd konden we er nu van gaan genieten.
 tags:
   - vaderklap

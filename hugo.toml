@@ -3,6 +3,7 @@ languageCode = 'nl-BE'
 title = 'BCKN'
 theme = "hugo-theme-anubis2"
 enableEmoji = true
+timeZone = "Europe/Brussels"
 
 [params.author]
 name = "Stefan"

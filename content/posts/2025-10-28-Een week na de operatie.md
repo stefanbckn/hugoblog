@@ -1,5 +1,5 @@
 ---
-date: '2025-10-28T07:50:59+01:00'
+date: 2025-10-28T07:50:59
 title: 'Een week na de operatie'
 slug: eenweeknadeoperatie
 categories:

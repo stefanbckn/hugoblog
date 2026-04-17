@@ -1,7 +1,7 @@
 ---
 categories:
   - budget
-date: 2022-01-24 10:11:01 +0100
+date: 2022-01-24T10:11:01
 excerpt: Het is alweer een tijd geleden dat ik hier nog iets over YNAB gepost heb. Vandaar dat ik even een korte terugblik wil werpen op 2021 en ons financieel jaar.
 tags:
   - budget

@@ -2,7 +2,7 @@
 categories:
   - persoonlijk
   - lopen
-date: 2022-09-13 19:11:01 +0100
+date: 2022-09-13T19:11:01
 excerpt: Op zondag 11 september stond mijn tweede marathon op de planning. Een realistische doelstelling en een inzinking later ben ik toch trots op mijn 2de finish op rij.
 tags:
   - lopen

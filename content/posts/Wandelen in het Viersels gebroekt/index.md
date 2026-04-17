@@ -1,7 +1,7 @@
 ---
 categories:
   - persoonlijk
-date: 2021-01-31 17:21:01 +0100
+date: 2021-01-31T17:21:01
 excerpt: Op wandeling in het Viersels gebroekt tot een overstroming ons tegenhield.
 tags:
   - wandelen

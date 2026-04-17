@@ -1,5 +1,5 @@
 ---
-date: '2025-10-19T07:50:59+01:00'
+date: 2025-10-19T07:50:59
 title: 'The Day before Tomorrow'
 slug: thedaybeforetomorrow
 categories:
