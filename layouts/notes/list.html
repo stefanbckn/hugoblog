@@ -1,0 +1,24 @@
+{{ define "main" }}
+
+<div class="index-content">
+        {{ .Content }}
+</div>
+
+    <div class="articles h-feed">
+        {{ $showFullContent := in site.Params.sectionsWithFullContentOnListPage .Section }}
+        {{ $pages := where .Pages "Params.private" "!=" true}}
+
+        {{ $pagesRange := $pages}}
+        {{ if $showFullContent }}
+            {{ $pagesRange = (.Paginate $pages).Pages }}
+        {{ end}}
+
+        {{ range $pagesRange }}
+          {{ partial "note-summary.html" . }}    
+        {{ end }}
+        {{ if $showFullContent }}
+            {{ partial "pagination.html" . }}
+        {{ end}}
+    </div>
+
+{{ end }}
