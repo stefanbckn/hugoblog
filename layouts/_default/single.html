@@ -1,6 +1,5 @@
 {{ define "main" }}
-
-<article class="post h-entry post-card" >
+    <article class="post h-entry post-card">
         <div class="post-header">
             <header>
                 {{ $random := (md5 .Title) }}
@@ -19,10 +18,10 @@
                         }
                     </style>
                 {{ end }}
-                <h1 class="p-name post-title{{ if .Params.favorite }} favorite{{end}}{{ if .Params.draft }} draft{{end}}">{{ .Date.Format "02 Jan 2006 15:04" }}</h1>
+                <h1 class="p-name post-title{{ if .Params.favorite }} favorite{{end}}{{ if .Params.draft }} draft{{end}} {{ if fileExists $iconPath}}post-icon-{{$random}}{{end}}">{{ trim .Title  " " | markdownify }}</h1>
                 {{ partial "post-language-switcher.html" . }}
             </header>
-            {{ partial "notes-info.html" . }}
+            {{ partial "post-info.html" . }}
         </div>
         {{ partial "toc.html" .}}
         <div class="content e-content">
@@ -46,7 +45,15 @@
 
     {{ partial "feat-comments/comments.html" . }}
 
+    {{/*  When you use ```mermaid``, render-codeblock-mermaid.html is called and
+        `.Store.Set "hasMermaid"` is executed.
+        `.Store.Get "hasMermaid"` will return true and mermaid.js will be loaded.
+    */}}
+    {{ if .Store.Get "hasMermaid" }}
+        {{ partial "features/mermaid.html" . }}
+    {{ end }}
     
-
-
+    {{ if .Params.math }}
+        {{ partial "features/mathjax.html" . }}
+    {{ end }}
 {{ end }}
