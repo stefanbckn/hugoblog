@@ -3,8 +3,16 @@ draft = 'true'
 title = 'Now'
 date = '2026-04-16T16:25:23'
 lastmod = '2026-04-17T17:25:23'
+toc = 'true'
 +++
-Een korte momentopname van waar ik nu mee bezig ben.
+
+{{< note "This is a note to highlight important information." >}}
+
+> Een korte momentopname van waar ik nu mee bezig ben.
+
+` test `
+
+{{< tip "This is a note to highlight important information." >}}
 
 ## Werk
 Alles over het werk
