@@ -7,8 +7,6 @@ timeZone = "Europe/Brussels"
 
 [params.author]
 name = "Stefan"
-email  = "stefan@bckn.be"
-location = "Belgium"
 
 [params]
 anubis2.tocWordCount = false
