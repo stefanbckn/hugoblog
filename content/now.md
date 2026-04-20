@@ -8,8 +8,6 @@ toc = 'true'
 Dit is een [now pagina](https://nownownow.com/about), en als je een eigen website hebt, [dan moet jij er ook een maken](https://nownownow.com/about).<br />
 Geïnspireerd door Derek Sievers zijn [nownownow.com](nownownow.com-) project.
 
-## Werk
-Momenteel werk ik als Senior PAM Architect bij Cegeka. Daar ontwerp en bouw ik IAM/PAM-oplossingen met o.a. CyberArk en Delinea.
 
 ## BCKN / setup
 De laatste aanpassing aan BCKN.be is de toevoeging van [notes](/notes/) waar ik al mijn social media mee aanstuur.
@@ -45,3 +43,6 @@ Aan het spelen:
 Op de verlanglijst:
 - Hollow Knight: Silksong
 - Ghost of Yotei
+
+## Werk
+Momenteel werk ik als Senior PAM Architect bij Cegeka. Daar ontwerp en bouw ik IAM/PAM-oplossingen met o.a. CyberArk en Delinea.
