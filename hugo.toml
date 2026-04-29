@@ -6,7 +6,9 @@ enableEmoji = true
 timeZone = "Europe/Brussels"
 
 [params.author]
-name = "Stefan"
+name = "Stefan Bocken"
+email  = "stefan@bckn.be"
+location = "Antwerp"
 
 [params]
 anubis2.tocWordCount = false

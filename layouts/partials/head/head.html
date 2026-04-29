@@ -8,8 +8,8 @@
 
 {{ partial "title.html" . }}
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}">
-<meta name="author" content="{{ with .Params.author }}{{ . }}{{ else }}{{ with site.Params.author }}{{ . }}{{ end }}{{ end -}}">
-<meta name="copyright" content="{{ with site.Params.copyright }}{{ . }}{{ else }}{{ with site.Params.author }}{{ . }}{{ end }}{{ end -}}">
+<meta name="author" content="{{ with .Params.author.name }}{{ . }}{{ else }}{{ with site.Params.author.name }}{{ . }}{{ end }}{{ end -}}">
+<meta name="copyright" content="© {{ with site.Params.author.name }}{{ . }}, {{ end }}{{ now.Year }}">
 <meta name="generator" content="Hugo {{ hugo.Version }}">
 <link rel="canonical" href="{{ .Permalink }}">
 
