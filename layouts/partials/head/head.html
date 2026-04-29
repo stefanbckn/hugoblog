@@ -13,6 +13,8 @@
 <meta name="generator" content="Hugo {{ hugo.Version }}">
 <link rel="canonical" href="{{ .Permalink }}">
 
+{{ partial "head/hcard.html" . }}
+
 {{ with .Keywords }}
     <meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }},{{ end }}{{ $e }}{{ end }}">
 {{ end }}
