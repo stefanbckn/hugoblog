@@ -8,7 +8,7 @@ timeZone = "Europe/Brussels"
 [params.author]
 name = "Stefan Bocken"
 email  = "stefan@bckn.be"
-location = "Antwerp"
+location = "Antwerp, BE"
 
 [params]
 anubis2.tocWordCount = false
