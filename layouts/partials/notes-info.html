@@ -5,7 +5,18 @@
 {{ $machineDateFormat := "2006-01-02" }}
 
 <div class="post-info noselect">
-    
+    {{ if .Params.date }}
+        <div class="post-date dt-published post-hidden-author">
+            <time datetime="{{ .Params.date.Format $machineDateFormat }}">
+                {{- .Params.date.Format $dateFormat -}}
+            </time>
+            {{ if ne .Params.date .Params.lastMod -}}
+                [{{ i18n "lastMod" }} <time datetime="{{ .Params.lastMod.Format $machineDateFormat }}">
+                    {{- .Params.lastMod.Format $dateFormat -}}
+                </time>]
+            {{- end }}
+        </div>
+    {{ end }}
     <a class="post-hidden-url u-url" href="{{ .RelPermalink }}">{{ .RelPermalink }}</a>
     <a href="{{ site.BaseURL }}" class="p-name p-author post-hidden-author h-card" rel="me">{{ .Params.author.name | default site.Params.author.name }}</a>
 
