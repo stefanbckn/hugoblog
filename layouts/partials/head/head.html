@@ -12,8 +12,7 @@
 <meta name="copyright" content="© {{ with site.Params.author.name }}{{ . }}, {{ end }}{{ now.Year }}">
 <meta name="generator" content="Hugo {{ hugo.Version }}">
 <link rel="canonical" href="{{ .Permalink }}">
-
-{{ partial "head/hcard.html" . }}
+<link rel="webmention" href="https://webmention.io/www.bckn.be/webmention" />
 
 {{ with .Keywords }}
     <meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }},{{ end }}{{ $e }}{{ end }}">
