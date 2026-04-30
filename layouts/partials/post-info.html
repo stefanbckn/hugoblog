@@ -20,7 +20,7 @@
 
     <a class="post-hidden-url u-url" href="{{ .RelPermalink }}">{{ .RelPermalink }}</a>
     <a href="{{ site.BaseURL }}" class="p-name p-author post-hidden-author h-card" rel="me">{{ .Params.author.name | default site.Params.author.name }}</a>
-    <img src="/img/stefan.jpeg" alt="Photo of {{ site.Params.author.name }}" title="{{ site.Params.author.name }}" class="u-photo photo post-hidden-author" />
+    <img src="/img/stefan.jpeg" alt="Photo of {{ site.Params.author.name }}" title="{{ site.Params.author.name }}" class="u-photo photo post-hidden-author h-card" />
 
     <div class="post-taxonomies">
         {{ if .Params.categories }}
