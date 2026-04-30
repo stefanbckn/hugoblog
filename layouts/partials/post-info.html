@@ -27,7 +27,7 @@
             <ul class="post-categories">
                 {{ range $cat_name := .Params.categories }}
                     {{ $cat_url := (printf "/categories/%s" $cat_name | urlize ) }}
-                    <li><a href="{{ $cat_url }}">{{ $cat_name }}</a></li>
+                    <li><a href="{{ $cat_url }}" class="p-category">{{ $cat_name }}</a></li>
                 {{ end }}
             </ul>
         {{ end }}
