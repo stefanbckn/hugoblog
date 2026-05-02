@@ -5,7 +5,7 @@ type: notes
 categories:
   - micro
 tags:
- - kboechoutsevv
+ - K. Boechoutse V.V.
 ---
 Vandaag ingevallen als trainer bij de u10. De gasten hebben dat heel goed gedaan! 💪🏻 #kboechoutsevv
 
