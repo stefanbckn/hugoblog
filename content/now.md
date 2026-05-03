@@ -10,8 +10,8 @@ Geïnspireerd door Derek Sievers zijn [nownownow.com](nownownow.com-) project.
 
 
 ## BCKN / setup
-De iOS shortcut kan nu ook om met meerdere tags. Hierdoor krijg je alle posts en notes te zien als je op een tag klinkt
-Volgende stappen:
+De iOS shortcut kan nu ook om met meerdere tags. Hierdoor krijg je alle posts en notes te zien als je op een tag klikt.<br />
+De volgende stappen:
 - Video's kunnen posten met notes
 - Toevoegen van webmentions
 - Upgraden naar de laatste versies
