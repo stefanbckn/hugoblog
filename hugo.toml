@@ -11,6 +11,7 @@ email  = "stefan@bckn.be"
 location = "Antwerp, BE"
 
 [params]
+mainSections = ["posts"]
 anubis2.tocWordCount = false
 anubis2.socialIcons = [
 	{ id = "mastodon", url = "https://mastodon.social/@stefanbckn" },
