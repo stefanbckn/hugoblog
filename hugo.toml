@@ -4,6 +4,7 @@ title = 'BCKN'
 theme = "hugo-theme-anubis2"
 enableEmoji = true
 timeZone = "Europe/Brussels"
+enableRobotsTXT = true
 
 [params.author]
 name = "Stefan Bocken"
