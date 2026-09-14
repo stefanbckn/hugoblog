@@ -4,15 +4,3 @@ HUGO_VERSION = "0.160.1"
 [build]
 publish = "public"
 command = "hugo --gc --minify"
-
-# Theme anubis2 v1.8+ toont tag- en categoriepagina's zonder paginering.
-# Oude /page/N/-adressen sturen we door naar de pagina zelf.
-[[redirects]]
-from = "/tags/:term/page/*"
-to = "/tags/:term/"
-status = 301
-
-[[redirects]]
-from = "/categories/:term/page/*"
-to = "/categories/:term/"
-status = 301

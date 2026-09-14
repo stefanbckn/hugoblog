@@ -1,0 +1,20 @@
+{{ define "main" }}
+    <h1>{{ i18n .Data.Singular | humanize | markdownify }}: {{ .Title | markdownify }}</h1>
+    <div style="font-size: 0.75rem; color: var(--post-info-color)">
+        <a style="margin-top: 0px;" href="{{ (print .Data.Plural "/") | relLangURL }}">{{ i18n (printf "toAll%s" (.Data.Plural | humanize )) | humanize }}</a>
+    </div>
+
+    {{/* bckn.be: gepagineerd zoals de homepage, en notes (zonder titel) als note-summary */}}
+    <div class="articles h-feed">
+        {{ $pages := where .Pages "Params.private" "!=" true }}
+        {{ range (.Paginate $pages).Pages }}
+            {{ if eq .Type "notes" }}
+                {{ partial "note-summary.html" . }}
+            {{ else }}
+                {{ partial "post-summary.html" . }}
+            {{ end }}
+        {{ end }}
+
+        {{ partial "pagination.html" . }}
+    </div>
+{{ end }}
