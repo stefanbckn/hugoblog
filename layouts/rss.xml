@@ -1,0 +1,71 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = site }}{{- end -}}
+{{- $pages := where (where $pctx.RegularPages ".Params.disable_feed" "!=" true) "Params.private" "!=" true -}}
+{{- if .IsHome -}}
+{{- /* bckn.be: notes horen ook in de hoofdfeed, naast de mainSections */ -}}
+{{- $feedSections := (site.Params.mainSections | default (slice "posts")) | append "notes" -}}
+{{- $pages = where $pages "Type" "in" $feedSections -}}
+{{- end -}}
+{{- $limit := site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+  <channel>
+    <title>{{ with site.Params.feedTitle }}{{ . }}{{ else }}{{ site.Title }}{{ end }}</title>
+    <link>{{ site.BaseURL }}</link>
+    <description>Recent blog posts on {{ site.Title }}</description>
+    {{ with site.Params.copyright }}
+    <copyright>{{ . }}</copyright>{{ end }}
+    <generator>Hugo (https://gohugo.io)</generator>
+    {{ with site.Language.Locale }}
+    <language>{{.}}</language>{{end}}
+    {{ with site.Params.author.name }}
+    <managingEditor>{{ with site.Params.author.email }}{{ . }}{{ with site.Params.author.name }} ({{ . }}){{ end }}{{ end }}</managingEditor>{{ end }}
+    {{ with site.Params.author.name }}
+    <webMaster>{{ with site.Params.author.email }}{{ . }}{{ with site.Params.author.name }} ({{ . }}){{ end }}{{ end }}</webMaster>{{ end }}
+    {{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 Z0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{ with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}{{ end }}
+    {{ range $index, $page := $pages }}
+
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 Z0700" | safeHTML }}</pubDate>
+      {{ with site.Params.author.name }}
+      <author>{{ with site.Params.author.email }}{{ . }}{{ with site.Params.author.name }} ({{ . }}){{ end }}{{ end }}</author>{{ end }}
+
+      {{ $cover := "" }}
+      {{ with $page.Params.cover }}
+        {{ $res := $page.Resources.GetMatch . }}
+          {{ if $res }}
+            {{ $cover = $res.Permalink }}
+          {{ else }}
+            {{ $cover = . | absURL }}
+          {{ end }}
+      {{ end }}
+      
+      {{ if $cover }}
+        <media:content url="{{ $cover }}" medium="image" />
+        <media:title>Cover Image</media:title>
+      {{ end }}
+
+      <description>
+      {{ .Summary | plainify | htmlEscape }}
+      </description>
+      <content:encoded>{{ .Content | html }}</content:encoded>
+      {{ range .Params.tags }}
+      <category>{{ . }}</category>
+      {{ end }}
+      {{ range .Params.categories }}
+      <category>{{ . }}</category>
+      {{ end }}
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+    </item>
+    {{ end }}
+  </channel>
+</rss>
