@@ -1,0 +1,92 @@
+<!-- Basic stuff -->
+<meta charset="utf-8">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer-when-downgrade">
+<meta name="theme-name" content="Anubis2">
+<meta name="theme-version" content="1.8.0">
+
+{{ partial "title.html" . }}
+{{ if .Params.private }}
+  <meta name="robots" content="noindex" />
+{{ else }}
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}">
+  <meta name="author" content="{{ with .Params.author.name }}{{ . }}{{ else }}{{ with site.Params.author.name }}{{ . }}{{ end }}{{ end -}}">
+  <meta name="copyright" content="© {{ with site.Params.author.name }}{{ . }}, {{ end }}{{ now.Year }}">
+  <meta name="generator" content="Hugo {{ hugo.Version }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ partial "head/hcard.html" . }}
+  {{/* hreflang alternates: emit one per language version, plus x-default → English.
+       .AllTranslations includes the current page, so it self-references too. */}}
+  {{ if .IsTranslated }}
+    {{ range .AllTranslations }}
+      <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    {{ end }}
+    {{ range .AllTranslations }}{{ if eq .Language.Lang "en" }}
+      <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+    {{ end }}{{ end }}
+  {{ end }}
+  {{ with .Keywords }}
+      <meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }},{{ end }}{{ $e }}{{ end }}">
+  {{ end }}
+{{ end }}
+
+{{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink site.Title | safeHTML }}
+{{ end -}}
+
+{{ partial "head/favicons.html" . }}
+
+{{ partial "head/schema.html" . }}
+
+{{ $params := partial "params-helper.html" . }}
+
+{{ if or (eq $params.enableColorThemeSwitcher true) (eq $params.colorTheme "auto") }}
+{{/* Set the theme on <html> synchronously before first paint to avoid a flash,
+     without ever hiding the body. Mirrors the storage key / logic in theme-switcher.html. */}}
+<script>
+  (function () {
+    var STORAGE_KEY = 'user-color-scheme';
+    var defaultTheme = "{{ $params.colorTheme }}";
+    var theme;
+    try { theme = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    if (!theme) {
+      theme = (defaultTheme && defaultTheme !== 'auto')
+        ? defaultTheme
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+{{end}}
+
+{{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/main.css") }}
+{{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/light.css") }}
+{{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/dark.css") }}
+{{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/shortcodes.css") }}
+{{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/ideas.css") }}
+
+{{ partial "features/custom-css.html" . }}
+{{ partial "features/custom-js.html" . }}
+
+{{ if $params.enableCopyCodeButton }}
+    {{ partial "resource.html" (dict "context" . "type" "js" "filename" "js/copy-code.js") }}
+{{ end }}
+
+{{ range $params.customJS -}}
+  {{ partial "resource.html" (dict "context" $ "type" "js" "filename" . ) }}
+{{- end }}
+
+{{ if hugo.IsProduction }}
+  {{ if isset $params.services "umami" }}
+      {{ partial "analytics/umami_analytics.html" . }}
+  {{ end }}
+
+  {{ if isset $params.services "googleanalytics" }}
+      {{ partial "analytics/google_analytics.html" . }}
+  {{ end }}
+
+  {{ if site.Params.SimpleAnalytics.enabled }}
+      {{ partial "head/simple_analytics.html" . }}
+  {{ end }}
+{{ end }}
