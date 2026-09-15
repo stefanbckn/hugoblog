@@ -50,6 +50,7 @@ hugo --gc --minify     # zelfde commando als Netlify (netlify.toml)
   - `term.html` — paginering op tag-/categoriepagina's en notes via `note-summary.html`.
   - `rss.xml` — hoofdfeed bevat notes naast de `mainSections`.
   - `_markup/render-heading.html` — tussentitels zonder `##`.
+  - `_markup/render-link.html` — links in content zonder `noreferrer` (enkel `rel="noopener"`).
   - `robots.txt` — met Sitemap-regel.
   - `notes/` — eigen list, single en feed voor notes.
 - Een override is een kopie van een theme-bestand. Bij een theme-update eerst per override
