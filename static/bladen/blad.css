@@ -1,0 +1,500 @@
+/**
+ * Stijlblad voor de drie hulpbladen onder /bladen/.
+ *
+ * Losse statische pagina's in static/: ze krijgen geen head, geen menu en geen thema-schakelaar
+ * van het Hugo-theme, en hebben dus hun eigen kleuren en letter nodig. Licht of donker volgt
+ * `prefers-color-scheme`, niet de schakelaar van de blog: die staat op een andere pagina en
+ * bereikt deze bladen niet.
+ *
+ * De kleurwaarden hieronder zijn overgetikt uit de huisstijl van zoekjeschool.be, zodat beide
+ * sites er familie van elkaar uitzien. Bewust overgetikte waarden en geen import: de code van
+ * die site staat onder AGPL-3.0, en die licentie hoort hier niet binnen te wandelen.
+ */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("plus-jakarta-sans-latin.woff2") format("woff2");
+}
+
+:root {
+  --c-grond: #f6fafb;
+  --c-kaart: #ffffff;
+  --c-rand: #cfdde1;
+  --c-inkt: #0a1a1f;
+  --c-zacht: #52646c;
+  --c-accent: #0b5c6e;
+  --c-accent-inkt: #ffffff;
+  --c-hover: #eef5f7;
+  --c-kop: #0b5c6e;
+  --c-kop-inkt: #ffffff;
+  --c-signaal: #ffc94a;
+  --c-zacht-vlak: #eef5f7;
+  --c-fout: #a12020;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-grond: #071216;
+    --c-kaart: #0e1e24;
+    --c-rand: #213d46;
+    --c-inkt: #e4f0f3;
+    --c-zacht: #93a9b1;
+    --c-accent: #6fc7d8;
+    --c-accent-inkt: #05171c;
+    --c-hover: #142a32;
+    --c-kop: #0e1e24;
+    --c-kop-inkt: #e4f0f3;
+    --c-zacht-vlak: #142a32;
+    --c-fout: #f3a3a3;
+  }
+}
+
+:root[data-theme="dark"] {
+  --c-grond: #071216;
+  --c-kaart: #0e1e24;
+  --c-rand: #213d46;
+  --c-inkt: #e4f0f3;
+  --c-zacht: #93a9b1;
+  --c-accent: #6fc7d8;
+  --c-accent-inkt: #05171c;
+  --c-hover: #142a32;
+  --c-kop: #0e1e24;
+  --c-kop-inkt: #e4f0f3;
+  --c-zacht-vlak: #142a32;
+  --c-fout: #f3a3a3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--c-grond);
+  color: var(--c-inkt);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.blad {
+  margin: 0 auto;
+  max-width: 48rem;
+  padding: 2.5rem 1rem;
+}
+
+.terug {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  color: var(--c-accent);
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.kaart {
+  margin-top: 1rem;
+  border: 1px solid var(--c-rand);
+  border-radius: 0.75rem;
+  background-color: var(--c-kaart);
+  padding: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .kaart {
+    padding: 2rem;
+  }
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.125rem;
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+h2 {
+  margin: 2rem 0 0;
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.lead,
+p {
+  color: var(--c-zacht);
+}
+
+.lead {
+  margin: 0.75rem 0 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* Eén focusring voor alles, gelijk aan de site: 3 px geel met 2 px afstand. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--c-signaal);
+  outline-offset: 2px;
+}
+
+/* ---- Stappen en stroomschema ---- */
+
+.start,
+.slot-altijd {
+  margin-top: 1.5rem;
+  border-radius: 0.625rem;
+  background-color: var(--c-accent);
+  color: var(--c-accent-inkt);
+  padding: 0.625rem 1rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.stap {
+  margin-top: 0.75rem;
+  border: 1px solid var(--c-rand);
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+
+.stap > .vraag {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background-color: var(--c-zacht-vlak);
+  padding: 0.75rem 1rem;
+}
+
+.nr {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background-color: var(--c-accent);
+  color: var(--c-accent-inkt);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.vraag h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-inkt);
+}
+
+.vraag .hint {
+  margin: 0.125rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: var(--c-zacht);
+}
+
+.tak {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 0.75rem;
+  border-top: 1px solid var(--c-rand);
+  padding: 0.625rem 1rem;
+}
+
+@media (max-width: 520px) {
+  .tak {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
+.antwoord {
+  display: inline-flex;
+  align-self: start;
+  align-items: center;
+  border: 1px solid var(--c-accent);
+  border-radius: 9999px;
+  padding: 0.0625rem 0.625rem;
+  color: var(--c-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.doe {
+  margin: 0;
+  font-weight: 600;
+  color: var(--c-inkt);
+  font-size: 0.9375rem;
+}
+
+.uitleg {
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--c-zacht);
+}
+
+.nee {
+  border-top: 1px solid var(--c-rand);
+  padding: 0.375rem 1rem;
+  font-size: 0.75rem;
+  color: var(--c-zacht);
+}
+
+.slot-altijd {
+  margin-top: 1rem;
+}
+
+.slot-altijd .los {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8125rem;
+  opacity: 0.9;
+}
+
+.klaar {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+/* ---- Overzichtslijst op /bladen/ ---- */
+
+.bladen {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.bladen a {
+  display: block;
+  border: 1px solid var(--c-rand);
+  border-radius: 0.625rem;
+  padding: 0.875rem 1rem;
+  text-decoration: none;
+}
+
+.bladen a:hover {
+  background-color: var(--c-hover);
+}
+
+.bladen .titel {
+  display: block;
+  font-weight: 600;
+  font-size: 1.0625rem;
+  color: var(--c-accent);
+}
+
+.bladen .bij {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--c-zacht);
+}
+
+/* ---- Kader met een terzijde ---- */
+
+.kader {
+  margin-top: 1.25rem;
+  border-left: 4px solid var(--c-accent);
+  border-radius: 0.375rem;
+  background-color: var(--c-zacht-vlak);
+  padding: 0.75rem 1rem;
+}
+
+.kader h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--c-inkt);
+}
+
+.kader p {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+/* ---- Vakkenrooster ---- */
+
+.vakken {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.625rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 520px) {
+  .vakken {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vak {
+  border: 1px solid var(--c-rand);
+  border-radius: 0.625rem;
+  padding: 0.625rem 0.75rem;
+}
+
+.vak h4 {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+.vak p {
+  margin: 0.125rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+/* ---- Knoppen ---- */
+
+.knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1.25rem;
+}
+
+.knop {
+  border: 0;
+  border-radius: 0.625rem;
+  background-color: var(--c-accent);
+  color: var(--c-accent-inkt);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.knop:hover {
+  opacity: 0.9;
+}
+
+.knop-leeg {
+  border: 1px solid var(--c-rand);
+  background-color: transparent;
+  color: var(--c-inkt);
+}
+
+.knop-leeg:hover {
+  background-color: var(--c-hover);
+  opacity: 1;
+}
+
+/* ---- Voettekst ---- */
+
+.voet {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--c-rand);
+  padding-top: 1rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--c-zacht);
+}
+
+.voet a {
+  text-decoration: underline;
+}
+
+/* ---- Afdruk ---- */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  :root,
+  :root[data-theme="dark"] {
+    --c-grond: #ffffff;
+    --c-kaart: #ffffff;
+    --c-rand: #cfdde1;
+    --c-inkt: #0a1a1f;
+    --c-zacht: #52646c;
+    --c-accent: #0b5c6e;
+    --c-accent-inkt: #ffffff;
+    --c-zacht-vlak: #eef5f7;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .nietafdrukken {
+    display: none !important;
+  }
+
+  .blad {
+    max-width: none;
+    padding: 0;
+  }
+
+  .kaart {
+    margin: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 19pt;
+  }
+
+  .lead {
+    font-size: 9pt;
+  }
+
+  .stap,
+  .vak,
+  .kader,
+  .tak {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .stap {
+    margin-top: 2mm;
+  }
+
+  .vraag h3 {
+    font-size: 10.5pt;
+  }
+
+  .vraag .hint,
+  .uitleg,
+  .nee {
+    font-size: 7.5pt;
+  }
+
+  .doe {
+    font-size: 9.5pt;
+  }
+
+  .voet {
+    margin-top: 6mm;
+    font-size: 7pt;
+  }
+}

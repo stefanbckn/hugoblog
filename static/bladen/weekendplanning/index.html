@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekendplanning | BCKN</title>
+    <meta
+      name="description"
+      content="Vul in wat er dit weekend vastligt en wat er tegen volgende week af moet. Het blad zet het in een rooster dat je kunt afdrukken en zelf verder invullen."
+    />
+    <link rel="canonical" href="https://bckn.be/bladen/weekendplanning/" />
+    <link rel="stylesheet" href="../blad.css" />
+    <link rel="stylesheet" href="weekendplanning.css" />
+
+    <!-- Simple Analytics wordt door blad.js ingeladen, en alleen op bckn.be zelf. Zie daar. -->
+  </head>
+  <body>
+    <div class="blad blad-breed">
+      <p class="nietafdrukken"><a href="/bladen/" class="terug">&larr; Terug naar de bladen</a></p>
+
+      <h1>Weekendplanning</h1>
+      <p class="lead nietafdrukken">
+        Vul in wat er dit weekend vastligt en wat er tegen volgende week af moet. Druk het blad
+        daarna af en schrijf zelf in de lege vakjes wanneer je wat doet.
+      </p>
+
+      <div class="kolommen nietafdrukken">
+        <section class="paneel">
+          <h2>Wat ligt al vast?</h2>
+          <p class="hint">
+            Geef de activiteit een naam en kies de dag en van wanneer tot wanneer je weg bent.
+          </p>
+          <div id="activiteiten"></div>
+          <button type="button" class="knop" id="activiteit-erbij">+ Activiteit erbij</button>
+        </section>
+
+        <section class="paneel">
+          <h2>Tegen volgende week</h2>
+          <p class="hint">
+            Taken en toetsen. Die komen als lijstje op het blad, niet in het rooster. Jij beslist
+            zelf wanneer je ze doet.
+          </p>
+          <table class="taken">
+            <thead>
+              <tr>
+                <th>Wat</th>
+                <th>Soort</th>
+                <th>Tegen</th>
+                <th>Tijd</th>
+                <th><span class="sr-only"></span></th>
+              </tr>
+            </thead>
+            <tbody id="taken"></tbody>
+          </table>
+          <button type="button" class="knop" id="regel-erbij" style="margin-top: 0.75rem">
+            + Regel erbij
+          </button>
+        </section>
+      </div>
+
+      <section class="paneel">
+        <h2>Mijn weekend</h2>
+        <p class="hint nietafdrukken">
+          Wat vastligt staat er al in. De lege vakjes vul je zelf in met een potlood.
+        </p>
+        <div class="dagen" id="rooster"></div>
+        <div class="waarschuwing nietafdrukken" id="waarschuwing" hidden></div>
+        <div class="knoppen nietafdrukken">
+          <button type="button" class="knop" data-afdrukken>Afdrukken</button>
+          <button type="button" class="knop knop-leeg" id="wissen">Alles wissen</button>
+        </div>
+        <p class="uitleg nietafdrukken" style="margin-top: 0.75rem">
+          Werkt de knop niet? Druk af met Ctrl+P of Cmd+P. Zet in het afdrukvenster
+          &#8220;achtergrondafbeeldingen&#8221; of &#8220;kleuren en afbeeldingen&#8221; aan,
+          anders komt alles in het grijs uit de printer.
+        </p>
+      </section>
+
+      <section class="paneel tedoen">
+        <h2>Te doen tegen volgende week</h2>
+        <div id="tedoen"></div>
+      </section>
+
+      <footer class="voet">
+        <p>
+          Wat je hier invult blijft op dit toestel staan, in de opslag van je eigen browser, zodat
+          het er volgende week nog is. Het gaat nergens naartoe: deze pagina stuurt niets door en
+          er is geen account aan verbonden. Wil je het weg? Klik op &#8220;alles wissen&#8221;.
+        </p>
+        <p>
+          Gemaakt door Stefan Bocken, ook van
+          <a href="https://zoekjeschool.be/">zoekjeschool.be</a>. Vragen of een fout gezien?
+          <a href="mailto:stefan@bckn.be">stefan@bckn.be</a> · © 2026 Stefan Bocken
+        </p>
+      </footer>
+    </div>
+    <script src="../blad.js"></script>
+    <script src="weekendplanning.js"></script>
+  </body>
+</html>

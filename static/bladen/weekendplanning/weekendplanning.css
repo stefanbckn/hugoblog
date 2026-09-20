@@ -1,0 +1,321 @@
+/* Aanvulling op blad.css, alleen voor de weekendplanner. */
+
+.blad-breed {
+  max-width: 64rem;
+}
+
+.kolommen {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .kolommen {
+    grid-template-columns: 1fr;
+  }
+}
+
+.paneel {
+  border: 1px solid var(--c-rand);
+  border-radius: 0.75rem;
+  background-color: var(--c-kaart);
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.paneel > h2 {
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--c-inkt);
+}
+
+.paneel > .hint {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--c-zacht);
+}
+
+input[type="text"],
+select {
+  border: 1px solid var(--c-rand);
+  border-radius: 0.625rem;
+  background-color: var(--c-grond);
+  color: var(--c-inkt);
+  padding: 0.375rem 0.5rem;
+  font: inherit;
+  font-size: 0.875rem;
+}
+
+input[type="text"]::placeholder {
+  color: var(--c-zacht);
+}
+
+.activiteit {
+  border-top: 1px solid var(--c-rand);
+  padding: 0.75rem 0 0.5rem;
+}
+
+.activiteit:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.activiteit .naamrij {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.activiteit .naamrij input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 600;
+}
+
+.moment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.moment .lbl {
+  font-size: 0.8125rem;
+  color: var(--c-zacht);
+}
+
+.mini {
+  border: 0;
+  background: transparent;
+  color: var(--c-accent);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.375rem 0;
+}
+
+.weg {
+  border: 0;
+  background: transparent;
+  color: var(--c-fout);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.375rem;
+  border-radius: 0.375rem;
+}
+
+.weg:hover {
+  background-color: var(--c-hover);
+}
+
+table.taken {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.taken th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-zacht);
+  padding: 0 0.25rem 0.25rem;
+}
+
+table.taken td {
+  border-top: 1px solid var(--c-rand);
+  padding: 0.25rem;
+}
+
+table.taken input,
+table.taken select {
+  width: 100%;
+}
+
+/* ---- Het rooster ---- */
+
+.dagen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .dagen {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dag h3 {
+  margin: 0 0 0.375rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--c-accent);
+}
+
+.rij {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0.25rem;
+  min-height: 1.6rem;
+}
+
+.rij .uur {
+  font-size: 0.6875rem;
+  color: var(--c-zacht);
+  text-align: right;
+  padding-top: 0.125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.rij.half .uur {
+  visibility: hidden;
+}
+
+.rij .vak {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--c-rand);
+  border-radius: 0.375rem;
+  background-color: var(--c-grond);
+  padding: 0 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.rij .vak.buiten {
+  border: 0;
+  background: transparent;
+}
+
+.rij .vak.bezet {
+  background-color: var(--c-accent);
+  border-color: var(--c-accent);
+  color: var(--c-accent-inkt);
+}
+
+.rij .vak.midden {
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.rij .vak.boven {
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.waarschuwing {
+  margin-top: 0.75rem;
+  border-left: 4px solid var(--c-fout);
+  border-radius: 0.375rem;
+  background-color: var(--c-zacht-vlak);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--c-inkt);
+}
+
+.waarschuwing[hidden] {
+  display: none;
+}
+
+/* ---- Het lijstje te doen ---- */
+
+.tedoen ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+@media (min-width: 700px) {
+  .tedoen ul {
+    column-count: 2;
+    column-gap: 1.8rem;
+  }
+}
+
+.tedoen li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-top: 1px solid var(--c-rand);
+  padding: 0.5rem 0;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+.hokje {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--c-accent);
+  border-radius: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.tedoen .wat {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.tedoen .bij {
+  display: block;
+  color: var(--c-zacht);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+@media print {
+  .blad-breed {
+    max-width: none;
+  }
+
+  .paneel {
+    border: 0;
+    padding: 0;
+    margin-top: 4mm;
+  }
+
+  .dagen {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3mm;
+  }
+
+  .rij {
+    min-height: 6.6mm;
+  }
+
+  .rij .vak {
+    font-size: 7.5pt;
+  }
+
+  .rij .vak.bezet {
+    background-color: var(--c-accent) !important;
+    color: var(--c-accent-inkt) !important;
+  }
+
+  .tedoen ul {
+    column-count: 2;
+    column-gap: 8mm;
+  }
+
+  .tedoen li {
+    padding: 1.2mm 0;
+  }
+
+  .tedoen .wat {
+    font-size: 9pt;
+  }
+
+  .tedoen .bij {
+    font-size: 7.5pt;
+  }
+}
