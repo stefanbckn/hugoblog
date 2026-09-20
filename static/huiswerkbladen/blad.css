@@ -1,5 +1,5 @@
 /**
- * Stijlblad voor de drie hulpbladen onder /bladen/.
+ * Stijlblad voor de drie huiswerkbladen onder /huiswerkbladen/.
  *
  * Losse statische pagina's in static/: ze krijgen geen head, geen menu en geen thema-schakelaar
  * van het Hugo-theme, en hebben dus hun eigen kleuren en letter nodig. Licht of donker volgt
@@ -270,7 +270,7 @@ select:focus-visible {
   color: var(--c-accent);
 }
 
-/* ---- Overzichtslijst op /bladen/ ---- */
+/* ---- Overzichtslijst op /huiswerkbladen/ ---- */
 
 .bladen {
   list-style: none;
