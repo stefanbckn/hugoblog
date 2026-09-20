@@ -35,21 +35,21 @@ url = "/notes/"
 weight = 2
 
 [[menu.main]]
+identifier = "huiswerkbladen"
+name = "huiswerkbladen"
+url = "/huiswerkbladen/"
+weight = 3
+
+[[menu.main]]
 identifier = "now"
 name = "Now"
 url = "/now/"
-weight = 3
+weight = 4
 
 [[menu.main]]
 identifier = "about"
 name = "About"
 url = "/about/"
-weight = 4
-
-[[menu.main]]
-identifier = "tags"
-name = "Tags"
-url = "/tags/"
 weight = 5
 
 [[menu.main]]
