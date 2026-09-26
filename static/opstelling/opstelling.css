@@ -1,5 +1,5 @@
 /**
- * Stijlblad voor /wisselschema/.
+ * Stijlblad voor /opstelling/.
  *
  * Een losse statische pagina in static/: ze krijgt geen head, geen menu en geen thema-schakelaar
  * van het Hugo-theme. Licht of donker volgt `prefers-color-scheme`. De letter is dezelfde als op

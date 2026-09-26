@@ -1,5 +1,5 @@
 /**
- * Wisselschema voor jeugdvoetbal.
+ * Opstelling en wissels voor jeugdvoetbal: een wisselschema dat de speeltijd eerlijk verdeelt.
  *
  * De wedstrijd wordt opgeknipt in blokken (bv. 4 kwarten van 20 minuten, gewisseld om de 10 =
  * 8 blokken). Per blok kiest het schema wie speelt en waar, met een toewijzing (Hongaarse
@@ -16,7 +16,7 @@
 ;(function () {
   'use strict'
 
-  var OPSLAG = 'wisselschema-v1'
+  var OPSLAG = 'opstelling-v1'
   var POGINGEN = 300
   var ONMOGELIJK = 1e7
   var LIJNEN = ['K', 'V', 'M', 'A']
@@ -974,7 +974,7 @@
   tekenSchema()
 
   // Voor tests in de console of met node: het algoritme los aanroepen.
-  window.wisselschema = { maakSchema: maakSchema, toestand: function () { return st } }
+  window.opstelling = { maakSchema: maakSchema, toestand: function () { return st } }
 })()
 
 /**
