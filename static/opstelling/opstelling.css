@@ -3,7 +3,9 @@
  *
  * Een losse statische pagina in static/: ze krijgt geen head, geen menu en geen thema-schakelaar
  * van het Hugo-theme. Licht of donker volgt `prefers-color-scheme`. De letter is dezelfde als op
- * de huiswerkbladen, het veld en de kleuren komen uit het oorspronkelijke U12-opstellingsblad.
+ * de huiswerkbladen. De kleuren zijn het geel en zwart van Boechoutse V.V.: zwart met geel in
+ * licht thema, geel met zwart in donker thema, en een geel shirt op het veld. Het gras blijft
+ * groen, en groen en rood blijven voor wie erin komt en wie eruit gaat.
  */
 
 @font-face {
@@ -16,66 +18,75 @@
 
 :root {
   color-scheme: light;
-  --bg: #eef2ec;
+  --bg: #f5f4ee;
   --surface: #ffffff;
-  --ink: #16211a;
-  --muted: #5b6b60;
-  --line: #d3dcd4;
+  --ink: #111111;
+  --muted: #5d5c55;
+  --line: #dcdad0;
   --grass: #2f7a4a;
   --grass2: #2a7043;
   --chalk: rgba(255, 255, 255, 0.82);
-  --accent: #f0b429;
-  --accent-ink: #3a2a00;
-  --gk: #e4572e;
-  --shirt: #ffffff;
-  --shirt-ink: #16211a;
-  --chip: #e3eae3;
-  --chip-on: #16211a;
-  --chip-on-ink: #ffffff;
+  --geel: #ffd200;
+  --zwart: #111111;
+  --primary: #111111;
+  --primary-ink: #ffd200;
+  --accent: #ffd200;
+  --accent-ink: #111111;
+  --gk: #111111;
+  --gk-ink: #ffd200;
+  --gk-rand: #111111;
+  --shirt: #ffd200;
+  --shirt-ink: #111111;
+  --nieuw: #ffffff;
+  --chip: #ecebe4;
+  --chip-on: #ffd200;
+  --chip-on-ink: #111111;
   --in: #1f8a4c;
   --out: #c2412d;
-  --warn-bg: #fff4d6;
-  --warn-ink: #5a4100;
+  --warn-bg: #fff4c2;
+  --warn-ink: #4a3b00;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0e1511;
-    --surface: #16201a;
-    --ink: #e6ede7;
-    --muted: #93a597;
-    --line: #27362c;
+    --bg: #0d0d0c;
+    --surface: #181816;
+    --ink: #f3f2ea;
+    --muted: #a3a197;
+    --line: #2e2d29;
     --grass: #245f3a;
     --grass2: #215836;
     --chalk: rgba(255, 255, 255, 0.7);
-    --chip: #1f2c23;
-    --chip-on: #e6ede7;
-    --chip-on-ink: #0e1511;
+    --primary: #ffd200;
+    --primary-ink: #111111;
+    --gk-rand: #ffd200;
+    --chip: #25241f;
     --in: #4cc27f;
     --out: #f07a64;
-    --warn-bg: #3a2f10;
-    --warn-ink: #f5dc9a;
+    --warn-bg: #3a300a;
+    --warn-ink: #f5e08a;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0e1511;
-  --surface: #16201a;
-  --ink: #e6ede7;
-  --muted: #93a597;
-  --line: #27362c;
+  --bg: #0d0d0c;
+  --surface: #181816;
+  --ink: #f3f2ea;
+  --muted: #a3a197;
+  --line: #2e2d29;
   --grass: #245f3a;
   --grass2: #215836;
   --chalk: rgba(255, 255, 255, 0.7);
-  --chip: #1f2c23;
-  --chip-on: #e6ede7;
-  --chip-on-ink: #0e1511;
+  --primary: #ffd200;
+  --primary-ink: #111111;
+  --gk-rand: #ffd200;
+  --chip: #25241f;
   --in: #4cc27f;
   --out: #f07a64;
-  --warn-bg: #3a2f10;
-  --warn-ink: #f5dc9a;
+  --warn-bg: #3a300a;
+  --warn-ink: #f5e08a;
 }
 
 * {
@@ -150,8 +161,8 @@ h2 {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--grass);
-  color: #fff;
+  background: var(--primary);
+  color: var(--primary-ink);
   font-size: 15px;
   flex: none;
 }
@@ -245,7 +256,7 @@ input[type="number"] {
 select:focus-visible,
 input:focus-visible,
 button:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--primary);
   outline-offset: 1px;
 }
 
@@ -253,9 +264,9 @@ button:focus-visible {
   font: inherit;
   font-weight: 700;
   font-size: 15px;
-  border: 1px solid var(--grass);
-  background: var(--grass);
-  color: #fff;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--primary-ink);
   border-radius: 999px;
   padding: 9px 18px;
   cursor: pointer;
@@ -322,7 +333,7 @@ button:focus-visible {
 .speler input[type="checkbox"] {
   width: 20px;
   height: 20px;
-  accent-color: var(--grass);
+  accent-color: var(--primary);
   margin: 0;
 }
 
@@ -365,8 +376,8 @@ button:focus-visible {
 
 .lijnen button[data-lijn="K"][aria-pressed="true"] {
   background: var(--gk);
-  border-color: var(--gk);
-  color: #fff;
+  border-color: var(--gk-rand);
+  color: var(--gk-ink);
 }
 
 .weg {
@@ -529,11 +540,13 @@ button:focus-visible {
 
 .p.gk .disc {
   background: var(--gk);
-  color: #fff;
+  color: var(--gk-ink);
+  border-color: var(--geel);
 }
 
 .p.new .disc {
-  border-color: var(--accent);
+  border-color: var(--nieuw);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .name {
@@ -743,7 +756,7 @@ button:focus-visible {
 }
 
 .mom:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--primary);
 }
 
 .mt {
@@ -800,8 +813,8 @@ td.b {
 }
 
 td.gk {
-  color: var(--gk);
-  font-weight: 700;
+  color: var(--ink);
+  font-weight: 800;
 }
 
 td.cur,
@@ -867,8 +880,8 @@ tr:last-child td {
 
 .editing .p.sel .disc {
   border-style: solid;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent);
+  border-color: var(--zwart);
+  box-shadow: 0 0 0 4px var(--nieuw);
 }
 
 .mnav {
