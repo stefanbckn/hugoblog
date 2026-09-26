@@ -966,14 +966,32 @@ tr:last-child td {
   }
 }
 
-/* ---------- Afdrukken: het overzicht en de tabel, geen veld en geen invoer ---------- */
+/* ---------- Afdrukken: pagina 1 de wisselmomenten, pagina 2 de speeltijd ---------- */
+
+/* Geen @page-regel: papierformaat en marges laat ik aan de browser en de printer. Een vaste
+ * A4 met eigen marges deed de rechterkant wegvallen in browsers die hun eigen marges houden. */
 
 @media print {
+  html,
+  body {
+    width: auto;
+    min-width: 0;
+  }
   body {
     background: #fff;
     color: #000;
     padding: 0;
+    margin: 0;
     font-size: 11pt;
+  }
+  .wrap,
+  .schema-paneel,
+  #schema,
+  .druk-momenten,
+  .druk-speeltijd {
+    max-width: 100%;
+    width: auto;
+    min-width: 0;
   }
   .nietafdrukken,
   .voet {
@@ -998,5 +1016,55 @@ tr:last-child td {
   .tbl {
     overflow: visible;
     border-color: #999;
+  }
+  /* Compacter, zodat alle wisselmomenten op de eerste pagina passen. */
+  .schema-paneel,
+  #schema {
+    gap: 10px;
+  }
+  .overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .mom {
+    min-width: 0;
+    padding: 8px;
+    gap: 4px;
+    font-size: 9.5pt;
+    overflow-wrap: anywhere;
+  }
+  .pairs {
+    gap: 3px;
+  }
+  .for,
+  .pp {
+    font-size: 8.5pt;
+  }
+  /* De speeltijd altijd op een eigen pagina, en in één stuk. */
+  .druk-speeltijd {
+    break-before: page;
+    break-inside: avoid;
+  }
+  .druk-speeltijd .tbl {
+    border-radius: 0;
+  }
+  /* Vaste kolommen: de tabel volgt de paginabreedte en duwt er nooit buiten. */
+  .druk-speeltijd table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .druk-speeltijd th,
+  .druk-speeltijd td {
+    padding: 6px 2px;
+    font-size: 9pt;
+  }
+  .druk-speeltijd th:first-child,
+  .druk-speeltijd td:first-child {
+    width: 22%;
+    padding-left: 8px;
+    white-space: normal;
+  }
+  tr {
+    break-inside: avoid;
   }
 }
