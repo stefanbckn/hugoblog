@@ -29,21 +29,22 @@
 
   // 8 tegen 8, zoals bij U10 tot U13.
   var STANDAARD = { perioden: 4, minuten: 20, wissel: 10 }
+  // Genoemd naar de linies zonder keeper: verdediging, middenveld, aanval.
   var OPSTELLINGEN = {
-    ruit: {
-      naam: 'Dubbele ruit',
+    '3-3-1': {
+      naam: '3-3-1',
       veld: [
         pos('LV', 'V', 17, 100),
         pos('CV', 'V', 50, 104),
         pos('RV', 'V', 83, 100),
-        pos('6', 'M', 50, 82),
-        pos('LF', 'M', 20, 60),
-        pos('RF', 'M', 80, 60),
+        pos('LM', 'M', 17, 66),
+        pos('6', 'M', 50, 74),
+        pos('RM', 'M', 83, 66),
         pos('SP', 'A', 50, 30),
       ],
     },
-    pijl: {
-      naam: 'Pijl 2-4-1',
+    '2-4-1': {
+      naam: '2-4-1',
       veld: [
         pos('CVL', 'V', 32, 104),
         pos('CVR', 'V', 68, 104),
@@ -54,7 +55,34 @@
         pos('SP', 'A', 50, 28),
       ],
     },
+    '3-2-2': {
+      naam: '3-2-2',
+      veld: [
+        pos('LV', 'V', 17, 100),
+        pos('CV', 'V', 50, 104),
+        pos('RV', 'V', 83, 100),
+        pos('6', 'M', 32, 74),
+        pos('8', 'M', 68, 74),
+        pos('SPL', 'A', 30, 36),
+        pos('SPR', 'A', 70, 36),
+      ],
+    },
+    '2-3-2': {
+      naam: '2-3-2',
+      veld: [
+        pos('CVL', 'V', 32, 104),
+        pos('CVR', 'V', 68, 104),
+        pos('LM', 'M', 15, 70),
+        pos('6', 'M', 50, 78),
+        pos('RM', 'M', 85, 70),
+        pos('SPL', 'A', 32, 36),
+        pos('SPR', 'A', 68, 36),
+      ],
+    },
   }
+
+  // Oude namen uit een eerdere versie van deze pagina, zodat een bewaarde ploeg blijft werken.
+  var OUDE_NAMEN = { ruit: '3-3-1', pijl: '2-4-1' }
 
   // ---------- Toestand ----------
 
@@ -64,7 +92,7 @@
   function standaardToestand() {
     var s = STANDAARD
     return {
-      inst: { opstelling: 'ruit', perioden: s.perioden, minuten: s.minuten, wissel: s.wissel },
+      inst: { opstelling: '3-3-1', perioden: s.perioden, minuten: s.minuten, wissel: s.wissel },
       spelers: [],
       schema: null,
       blok: 0,
@@ -75,6 +103,7 @@
     try {
       var d = JSON.parse(localStorage.getItem(OPSLAG) || 'null')
       if (!d || !d.inst || !Array.isArray(d.spelers)) return
+      if (OUDE_NAMEN[d.inst.opstelling]) d.inst.opstelling = OUDE_NAMEN[d.inst.opstelling]
       if (!OPSTELLINGEN[d.inst.opstelling]) return
       delete d.inst.spelvorm
       st.inst = d.inst
