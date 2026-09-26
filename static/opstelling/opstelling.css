@@ -968,17 +968,30 @@ tr:last-child td {
 
 /* ---------- Afdrukken: pagina 1 de wisselmomenten, pagina 2 de speeltijd ---------- */
 
-@page {
-  size: A4 portrait;
-  margin: 12mm;
-}
+/* Geen @page-regel: papierformaat en marges laat ik aan de browser en de printer. Een vaste
+ * A4 met eigen marges deed de rechterkant wegvallen in browsers die hun eigen marges houden. */
 
 @media print {
+  html,
+  body {
+    width: auto;
+    min-width: 0;
+  }
   body {
     background: #fff;
     color: #000;
     padding: 0;
+    margin: 0;
     font-size: 11pt;
+  }
+  .wrap,
+  .schema-paneel,
+  #schema,
+  .druk-momenten,
+  .druk-speeltijd {
+    max-width: 100%;
+    width: auto;
+    min-width: 0;
   }
   .nietafdrukken,
   .voet {
@@ -1014,9 +1027,11 @@ tr:last-child td {
     gap: 6px;
   }
   .mom {
+    min-width: 0;
     padding: 8px;
     gap: 4px;
     font-size: 9.5pt;
+    overflow-wrap: anywhere;
   }
   .pairs {
     gap: 3px;
@@ -1032,6 +1047,22 @@ tr:last-child td {
   }
   .druk-speeltijd .tbl {
     border-radius: 0;
+  }
+  /* Vaste kolommen: de tabel volgt de paginabreedte en duwt er nooit buiten. */
+  .druk-speeltijd table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .druk-speeltijd th,
+  .druk-speeltijd td {
+    padding: 6px 2px;
+    font-size: 9pt;
+  }
+  .druk-speeltijd th:first-child,
+  .druk-speeltijd td:first-child {
+    width: 22%;
+    padding-left: 8px;
+    white-space: normal;
   }
   tr {
     break-inside: avoid;
