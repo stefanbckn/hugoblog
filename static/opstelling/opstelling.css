@@ -966,7 +966,12 @@ tr:last-child td {
   }
 }
 
-/* ---------- Afdrukken: het overzicht en de tabel, geen veld en geen invoer ---------- */
+/* ---------- Afdrukken: pagina 1 de wisselmomenten, pagina 2 de speeltijd ---------- */
+
+@page {
+  size: A4 portrait;
+  margin: 12mm;
+}
 
 @media print {
   body {
@@ -998,5 +1003,37 @@ tr:last-child td {
   .tbl {
     overflow: visible;
     border-color: #999;
+  }
+  /* Compacter, zodat alle wisselmomenten op de eerste pagina passen. */
+  .schema-paneel,
+  #schema {
+    gap: 10px;
+  }
+  .overview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .mom {
+    padding: 8px;
+    gap: 4px;
+    font-size: 9.5pt;
+  }
+  .pairs {
+    gap: 3px;
+  }
+  .for,
+  .pp {
+    font-size: 8.5pt;
+  }
+  /* De speeltijd altijd op een eigen pagina, en in één stuk. */
+  .druk-speeltijd {
+    break-before: page;
+    break-inside: avoid;
+  }
+  .druk-speeltijd .tbl {
+    border-radius: 0;
+  }
+  tr {
+    break-inside: avoid;
   }
 }
