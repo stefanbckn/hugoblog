@@ -23,14 +23,17 @@
   var LIJNNAAM = { K: 'keeper', V: 'verdediging', M: 'middenveld', A: 'aanval' }
   var KEEPER = { id: 'K', lijn: 'K', x: 50, y: 126 }
 
-  function pos(id, lijn, x, y) {
-    return { id: id, lijn: lijn, x: x, y: y }
+  // `label` is wat op het scherm staat; zonder label is dat de id. Twee posities met hetzelfde
+  // label (twee CM's) hebben elk een eigen id, want het schema houdt spelers uit elkaar per id.
+  function pos(id, lijn, x, y, label) {
+    return { id: id, lijn: lijn, x: x, y: y, label: label || id }
   }
 
   // 8 tegen 8, zoals bij U10 tot U13.
   var STANDAARD = { perioden: 4, minuten: 20, wissel: 10 }
   // Genoemd naar de linies zonder keeper: verdediging, middenveld, aanval. Centraal middenveld:
-  // één speler heet CM, twee spelers heten CVM (verdedigend) en CAM (aanvallend).
+  // één speler heet CM; twee achter elkaar heten CVM (verdedigend) en CAM (aanvallend), twee
+  // naast elkaar allebei CM.
   var OPSTELLINGEN = {
     '3-3-1': {
       naam: '3-3-1',
@@ -62,8 +65,8 @@
         pos('LV', 'V', 17, 100),
         pos('CV', 'V', 50, 104),
         pos('RV', 'V', 83, 100),
-        pos('CVM', 'M', 50, 82),
-        pos('CAM', 'M', 50, 60),
+        pos('CML', 'M', 32, 74, 'CM'),
+        pos('CMR', 'M', 68, 74, 'CM'),
         pos('SPL', 'A', 30, 36),
         pos('SPR', 'A', 70, 36),
       ],
@@ -358,6 +361,13 @@
     return null
   }
 
+  function label(id) {
+    if (id === 'K') return 'K'
+    var veld = opstelling().veld
+    for (var i = 0; i < veld.length; i++) if (veld[i].id === id) return veld[i].label
+    return id
+  }
+
   function minutenVan(opst, blokken, id) {
     var m = 0
     for (var i = 0; i < opst.length; i++) if (opst[i][id]) m += blokken[i].duur
@@ -455,7 +465,7 @@
   }
 
   function zetTekst(z) {
-    return esc(naam(z.id)) + ' ' + z.van + '→' + z.naar
+    return esc(naam(z.id)) + ' ' + label(z.van) + '→' + label(z.naar)
   }
 
   function wisselHTML(w) {
@@ -464,7 +474,7 @@
     w.paren.forEach(function (p) {
       h +=
         '<li><span class="pin">' + esc(naam(p.in)) + '</span><span class="for">in voor</span>' +
-        '<span class="pout">' + esc(naam(p.uit)) + '</span><span class="pp">' + p.inPos +
+        '<span class="pout">' + esc(naam(p.uit)) + '</span><span class="pp">' + label(p.inPos) +
         (p.zet.length ? ' · ' + p.zet.map(zetTekst).join(', ') : '') + '</span></li>'
     })
     if (w.los.length) h += '<li><span class="pp">Schuiven: ' + w.los.map(zetTekst).join(', ') + '</span></li>'
@@ -850,7 +860,7 @@
         d.style.left = xy[plek].x + '%'
         d.style.top = (xy[plek].y / 140) * 100 + '%'
         d.classList.remove('off')
-        d.querySelector('.pos').textContent = plek
+        d.querySelector('.pos').textContent = label(plek)
       } else {
         d.classList.add('off')
         d.style.top = '100%'
@@ -925,7 +935,7 @@
         var sep = i > 0 && blok.periode !== sch.blokken[i - 1].periode
         t +=
           '<td class="' + (plek ? (plek === 'K' ? 'gk' : '') : 'b') + (i === b ? ' cur' : '') + (sep ? ' qsep' : '') + '">' +
-          (plek || 'bank') + '</td>'
+          (plek ? label(plek) : 'bank') + '</td>'
       })
       t += '<td class="tot">' + m + "'</td></tr>"
     })
