@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opstelling en wissels voor jeugdvoetbal | BCKN</title>
+    <meta
+      name="description"
+      content="Vul je spelers in, kies per speler waar hij kan spelen, en krijg een wisselschema dat de speeltijd eerlijk verdeelt. Voor 8 tegen 8."
+    />
+    <link rel="canonical" href="https://bckn.be/opstelling/" />
+    <link rel="stylesheet" href="opstelling.css" />
+
+    <!-- Simple Analytics wordt door opstelling.js ingeladen, en alleen op bckn.be zelf. Zie daar. -->
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="nietafdrukken"><a href="/" class="terug">&larr; Terug naar bckn.be</a></p>
+
+      <header class="kop">
+        <h1>Opstelling en wissels</h1>
+        <p class="lead nietafdrukken">
+          Vul in wie er meespeelt en waar elke speler kan staan. Het schema verdeelt de speeltijd
+          zo eerlijk mogelijk, houdt spelers zoveel mogelijk op hun plek en zegt bij elke wissel
+          wie erin komt voor wie.
+        </p>
+      </header>
+
+      <div class="instel nietafdrukken">
+        <section class="paneel">
+          <h2><span class="nr">1</span> De wedstrijd</h2>
+          <div class="velden">
+            <label class="breed">
+              <span>Opstelling (8 tegen 8)</span>
+              <select id="opstelling"></select>
+            </label>
+            <label>
+              <span>Periodes</span>
+              <select id="perioden">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </label>
+            <label>
+              <span>Minuten per periode</span>
+              <input id="minuten" type="number" min="5" max="60" step="1" inputmode="numeric" />
+            </label>
+            <label class="breed">
+              <span>Wisselen</span>
+              <select id="wissel"></select>
+            </label>
+          </div>
+          <p class="hint" id="samenvatting"></p>
+        </section>
+
+        <section class="paneel">
+          <h2><span class="nr">2</span> Spelers</h2>
+          <form class="erbij" id="erbij">
+            <label class="sr-only" for="nieuw">Naam</label>
+            <input id="nieuw" type="text" placeholder="Naam van een speler" autocomplete="off" />
+            <button type="submit" class="knop">Toevoegen</button>
+          </form>
+          <p class="hint">
+            Een lijst plakken met één naam per regel kan ook. Tik per speler aan waar hij kan
+            spelen: <b>K</b> keeper, <b>V</b> verdediging, <b>M</b> middenveld, <b>A</b> aanval.
+            Wie er vandaag niet is, vink je uit.
+          </p>
+          <ul class="spelers" id="spelers"></ul>
+          <p class="hint" id="telling"></p>
+          <div class="knoppen">
+            <button type="button" class="knop knop-leeg" id="wissen">Alles wissen</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="paneel schema-paneel" id="schema-paneel">
+        <div class="schema-kop">
+          <h2><span class="nr nietafdrukken">3</span> Het schema</h2>
+          <div class="knoppen nietafdrukken">
+            <button type="button" class="knop" id="maak">Maak wisselschema</button>
+            <button type="button" class="knop knop-leeg" id="afdrukken" hidden>Afdrukken</button>
+          </div>
+        </div>
+        <div class="melding nietafdrukken" id="melding" hidden></div>
+
+        <div id="schema" hidden>
+          <div class="editbar nietafdrukken">
+            <button type="button" id="aanpassen" class="eb" aria-pressed="false">✎ Aanpassen</button>
+            <span class="ehint" id="ehint"></span>
+          </div>
+
+          <div class="mnav nietafdrukken">
+            <button type="button" id="mvorige" aria-label="Vorig blok">←</button>
+            <span class="now" id="mnu"></span>
+            <button type="button" id="mvolgende" aria-label="Volgend blok">→</button>
+          </div>
+
+          <div class="main nietafdrukken">
+            <div class="pitch-wrap" id="veld">
+              <svg viewBox="0 0 100 140" aria-hidden="true">
+                <rect class="stripe" x="0" y="0" width="100" height="17.5" />
+                <rect class="stripe" x="0" y="35" width="100" height="17.5" />
+                <rect class="stripe" x="0" y="70" width="100" height="17.5" />
+                <rect class="stripe" x="0" y="105" width="100" height="17.5" />
+                <rect class="chalk" x="4" y="4" width="92" height="132" />
+                <line class="chalk" x1="4" y1="70" x2="96" y2="70" />
+                <circle class="chalk" cx="50" cy="70" r="11" />
+                <rect class="chalk" x="24" y="4" width="52" height="20" />
+                <rect class="chalk" x="24" y="116" width="52" height="20" />
+                <rect class="chalk" x="40" y="1.5" width="20" height="2.5" />
+                <rect class="chalk" x="40" y="136" width="20" height="2.5" />
+              </svg>
+              <div class="attack">aanvalsrichting →</div>
+            </div>
+
+            <div class="side">
+              <div class="paneel-in">
+                <p class="label">Blok</p>
+                <div class="blocks" id="blokken"></div>
+                <div class="nav">
+                  <button type="button" id="vorige">← Vorige</button>
+                  <span class="now" id="nu"></span>
+                  <button type="button" id="volgende">Volgende →</button>
+                </div>
+              </div>
+
+              <div class="paneel-in">
+                <p class="label" id="wisseltitel">Wissels</p>
+                <div id="wisselbody"></div>
+              </div>
+
+              <div class="paneel-in">
+                <p class="label">Op de bank</p>
+                <div class="bench" id="bank"></div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="label">Alle wisselmomenten</p>
+            <div class="overview" id="overzicht"></div>
+          </div>
+
+          <div>
+            <p class="label">Speeltijd per speler</p>
+            <div class="tbl"><table id="tabel"></table></div>
+          </div>
+          <p class="note nietafdrukken">
+            Witte rand = komt net het veld op. Swipe over het veld, gebruik de pijltjestoetsen of
+            tik een blok aan om te bladeren. Met Aanpassen tik je twee spelers aan om ze in dat
+            blok van plaats te wisselen, of een speler en een bankzitter om ze te wisselen.
+          </p>
+        </div>
+      </section>
+
+      <footer class="voet">
+        <p>
+          Wat je hier invult blijft op dit toestel staan, in de opslag van je eigen browser, zodat
+          je ploeg er volgende week nog staat. Het gaat nergens naartoe: deze pagina stuurt niets
+          door en er is geen account aan verbonden. Wil je het weg? Klik op &#8220;Alles
+          wissen&#8221; bij de spelers: dan vergeet deze pagina je ploeg, je instellingen en het
+          schema.
+        </p>
+        <p>
+          Gemaakt door Stefan Bocken. Vragen of een fout gezien?
+          <a href="mailto:stefan@bckn.be">stefan@bckn.be</a> · © 2026 Stefan Bocken
+        </p>
+      </footer>
+    </div>
+    <script src="opstelling.js"></script>
+  </body>
+</html>
