@@ -27,86 +27,32 @@
     return { id: id, lijn: lijn, x: x, y: y }
   }
 
-  var SPELVORMEN = {
-    5: {
-      naam: '5 tegen 5',
-      standaard: { perioden: 4, minuten: 15, wissel: 5 },
-      opstellingen: {
-        ruit: {
-          naam: 'Ruit 1-2-1',
-          veld: [pos('V', 'V', 50, 102), pos('LM', 'M', 18, 74), pos('RM', 'M', 82, 74), pos('SP', 'A', 50, 40)],
-        },
-        blok: {
-          naam: 'Blok 2-2',
-          veld: [pos('LV', 'V', 28, 100), pos('RV', 'V', 72, 100), pos('LA', 'A', 28, 52), pos('RA', 'A', 72, 52)],
-        },
-      },
+  // 8 tegen 8, zoals bij U10 tot U13.
+  var STANDAARD = { perioden: 4, minuten: 20, wissel: 10 }
+  var OPSTELLINGEN = {
+    ruit: {
+      naam: 'Dubbele ruit',
+      veld: [
+        pos('LV', 'V', 17, 100),
+        pos('CV', 'V', 50, 104),
+        pos('RV', 'V', 83, 100),
+        pos('6', 'M', 50, 82),
+        pos('LF', 'M', 20, 60),
+        pos('RF', 'M', 80, 60),
+        pos('SP', 'A', 50, 30),
+      ],
     },
-    8: {
-      naam: '8 tegen 8',
-      standaard: { perioden: 4, minuten: 20, wissel: 10 },
-      opstellingen: {
-        ruit: {
-          naam: 'Dubbele ruit',
-          veld: [
-            pos('LV', 'V', 17, 100),
-            pos('CV', 'V', 50, 104),
-            pos('RV', 'V', 83, 100),
-            pos('6', 'M', 50, 82),
-            pos('LF', 'M', 20, 60),
-            pos('RF', 'M', 80, 60),
-            pos('SP', 'A', 50, 30),
-          ],
-        },
-        pijl: {
-          naam: 'Pijl 2-4-1',
-          veld: [
-            pos('CVL', 'V', 32, 104),
-            pos('CVR', 'V', 68, 104),
-            pos('6', 'M', 50, 86),
-            pos('LM', 'M', 15, 66),
-            pos('RM', 'M', 85, 66),
-            pos('10', 'M', 50, 54),
-            pos('SP', 'A', 50, 28),
-          ],
-        },
-      },
-    },
-    11: {
-      naam: '11 tegen 11',
-      standaard: { perioden: 2, minuten: 40, wissel: 20 },
-      opstellingen: {
-        '433': {
-          naam: '4-3-3',
-          veld: [
-            pos('LV', 'V', 14, 98),
-            pos('CVL', 'V', 37, 106),
-            pos('CVR', 'V', 63, 106),
-            pos('RV', 'V', 86, 98),
-            pos('6', 'M', 50, 86),
-            pos('8', 'M', 30, 68),
-            pos('10', 'M', 70, 64),
-            pos('LA', 'A', 16, 40),
-            pos('SP', 'A', 50, 28),
-            pos('RA', 'A', 84, 40),
-          ],
-        },
-        '442': {
-          naam: '4-4-2',
-          veld: [
-            pos('LV', 'V', 14, 98),
-            pos('CVL', 'V', 37, 106),
-            pos('CVR', 'V', 63, 106),
-            pos('RV', 'V', 86, 98),
-            pos('LM', 'M', 14, 66),
-            pos('CML', 'M', 38, 76),
-            pos('CMR', 'M', 62, 76),
-            pos('RM', 'M', 86, 66),
-            pos('SPL', 'A', 36, 34),
-            pos('SPR', 'A', 64, 34),
-          ],
-        },
-      },
+    pijl: {
+      naam: 'Pijl 2-4-1',
+      veld: [
+        pos('CVL', 'V', 32, 104),
+        pos('CVR', 'V', 68, 104),
+        pos('6', 'M', 50, 86),
+        pos('LM', 'M', 15, 66),
+        pos('RM', 'M', 85, 66),
+        pos('10', 'M', 50, 54),
+        pos('SP', 'A', 50, 28),
+      ],
     },
   }
 
@@ -116,9 +62,9 @@
   laad()
 
   function standaardToestand() {
-    var s = SPELVORMEN[8].standaard
+    var s = STANDAARD
     return {
-      inst: { spelvorm: 8, opstelling: 'ruit', perioden: s.perioden, minuten: s.minuten, wissel: s.wissel },
+      inst: { opstelling: 'ruit', perioden: s.perioden, minuten: s.minuten, wissel: s.wissel },
       spelers: [],
       schema: null,
       blok: 0,
@@ -129,8 +75,8 @@
     try {
       var d = JSON.parse(localStorage.getItem(OPSLAG) || 'null')
       if (!d || !d.inst || !Array.isArray(d.spelers)) return
-      var vorm = SPELVORMEN[d.inst.spelvorm]
-      if (!vorm || !vorm.opstellingen[d.inst.opstelling]) return
+      if (!OPSTELLINGEN[d.inst.opstelling]) return
+      delete d.inst.spelvorm
       st.inst = d.inst
       st.spelers = d.spelers.filter(function (s) {
         return s && typeof s.id === 'string' && typeof s.naam === 'string' && Array.isArray(s.lijnen)
@@ -161,7 +107,7 @@
   }
 
   function opstelling() {
-    return SPELVORMEN[st.inst.spelvorm].opstellingen[st.inst.opstelling]
+    return OPSTELLINGEN[st.inst.opstelling]
   }
 
   function speler(id) {
@@ -503,14 +449,8 @@
   // ---------- Invoer: wedstrijd ----------
 
   function vulKeuzes() {
-    var sv = $('spelvorm')
-    sv.innerHTML = Object.keys(SPELVORMEN)
-      .map(function (k) { return '<option value="' + k + '">' + SPELVORMEN[k].naam + '</option>' })
-      .join('')
-    sv.value = String(st.inst.spelvorm)
-
     var os = $('opstelling')
-    var opst = SPELVORMEN[st.inst.spelvorm].opstellingen
+    var opst = OPSTELLINGEN
     os.innerHTML = Object.keys(opst)
       .map(function (k) { return '<option value="' + k + '">' + opst[k].naam + '</option>' })
       .join('')
@@ -540,12 +480,6 @@
       ' blokken. De keeper wisselt alleen tussen de periodes.'
   }
 
-  $('spelvorm').addEventListener('change', function () {
-    var v = +this.value
-    var s = SPELVORMEN[v].standaard
-    st.inst = { spelvorm: v, opstelling: Object.keys(SPELVORMEN[v].opstellingen)[0], perioden: s.perioden, minuten: s.minuten, wissel: s.wissel }
-    na()
-  })
   $('opstelling').addEventListener('change', function () {
     st.inst.opstelling = this.value
     na()
