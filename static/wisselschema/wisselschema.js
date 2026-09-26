@@ -680,14 +680,36 @@
     tekenSchema()
   })
 
+  // Eerste tik zet de knop op scherp, een tweede tik binnen 3 seconden wist alles: de spelers,
+  // de instellingen en het schema, ook uit localStorage.
+  var wisGewapend = false
   $('wissen').addEventListener('click', function () {
-    if (!confirm('Alle spelers en het schema wissen?')) return
+    var knop = this
+    if (!wisGewapend) {
+      wisGewapend = true
+      knop.textContent = 'Zeker? Tik opnieuw'
+      knop.classList.add('gewapend')
+      setTimeout(function () {
+        wisGewapend = false
+        knop.textContent = 'Alles wissen'
+        knop.classList.remove('gewapend')
+      }, 3000)
+      return
+    }
+    wisGewapend = false
+    knop.textContent = 'Alles wissen'
+    knop.classList.remove('gewapend')
     try {
       localStorage.removeItem(OPSLAG)
     } catch (e) {}
     st = standaardToestand()
+    bewerken = false
+    gekozen = null
     toonMelding('')
-    na()
+    // Niet via na(): die bewaart, en dan staat er meteen weer iets in localStorage.
+    vulKeuzes()
+    tekenSpelers()
+    tekenSchema()
   })
 
   var meldingTekst = ''
@@ -946,7 +968,10 @@
     sx = null
   }, { passive: true })
 
-  na()
+  // Eerste weergave zonder te bewaren: er komt pas iets in localStorage als je zelf iets invult.
+  vulKeuzes()
+  tekenSpelers()
+  tekenSchema()
 
   // Voor tests in de console of met node: het algoritme los aanroepen.
   window.wisselschema = { maakSchema: maakSchema, toestand: function () { return st } }

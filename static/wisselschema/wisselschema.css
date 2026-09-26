@@ -275,18 +275,13 @@ button:focus-visible {
 .knop.gewapend {
   background: var(--out);
   border-color: var(--out);
+  color: #fff;
 }
 
 .knoppen {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.linkknop {
-  all: unset;
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 .erbij {
