@@ -29,7 +29,8 @@
 
   // 8 tegen 8, zoals bij U10 tot U13.
   var STANDAARD = { perioden: 4, minuten: 20, wissel: 10 }
-  // Genoemd naar de linies zonder keeper: verdediging, middenveld, aanval.
+  // Genoemd naar de linies zonder keeper: verdediging, middenveld, aanval. Centraal middenveld:
+  // één speler heet CM, twee spelers heten CVM (verdedigend) en CAM (aanvallend).
   var OPSTELLINGEN = {
     '3-3-1': {
       naam: '3-3-1',
@@ -38,7 +39,7 @@
         pos('CV', 'V', 50, 104),
         pos('RV', 'V', 83, 100),
         pos('LM', 'M', 17, 66),
-        pos('6', 'M', 50, 74),
+        pos('CM', 'M', 50, 74),
         pos('RM', 'M', 83, 66),
         pos('SP', 'A', 50, 30),
       ],
@@ -48,10 +49,10 @@
       veld: [
         pos('CVL', 'V', 32, 104),
         pos('CVR', 'V', 68, 104),
-        pos('6', 'M', 50, 86),
+        pos('CVM', 'M', 50, 86),
         pos('LM', 'M', 15, 66),
         pos('RM', 'M', 85, 66),
-        pos('10', 'M', 50, 54),
+        pos('CAM', 'M', 50, 54),
         pos('SP', 'A', 50, 28),
       ],
     },
@@ -61,8 +62,8 @@
         pos('LV', 'V', 17, 100),
         pos('CV', 'V', 50, 104),
         pos('RV', 'V', 83, 100),
-        pos('6', 'M', 32, 74),
-        pos('8', 'M', 68, 74),
+        pos('CVM', 'M', 50, 82),
+        pos('CAM', 'M', 50, 60),
         pos('SPL', 'A', 30, 36),
         pos('SPR', 'A', 70, 36),
       ],
@@ -73,7 +74,7 @@
         pos('CVL', 'V', 32, 104),
         pos('CVR', 'V', 68, 104),
         pos('LM', 'M', 15, 70),
-        pos('6', 'M', 50, 78),
+        pos('CM', 'M', 50, 78),
         pos('RM', 'M', 85, 70),
         pos('SPL', 'A', 32, 36),
         pos('SPR', 'A', 68, 36),
@@ -163,10 +164,12 @@
   }
 
   // De sleutel van alles wat het schema beïnvloedt. Verandert hij, dan is het schema verouderd.
-  // Namen horen er niet bij: een tikfout verbeteren mag het schema niet weggooien.
+  // Namen horen er niet bij: een tikfout verbeteren mag het schema niet weggooien. De posities
+  // wel: een schema met posities die niet meer bestaan, kan het veld niet tekenen.
   function sleutel() {
     return JSON.stringify([
       st.inst,
+      opstelling().veld.map(function (p) { return p.id }),
       aanwezig().map(function (s) {
         return [s.id, s.lijnen.slice().sort().join('')]
       }),
