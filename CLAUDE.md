@@ -44,6 +44,11 @@ hugo --gc --minify     # zelfde commando als Netlify (netlify.toml)
 - Eigen overrides en waarom ze bestaan:
   - `_partials/head/head.html` — `author.name`, copyright, h-card (`head/hcard.html`),
     SimpleAnalytics (`params.SimpleAnalytics.enabled`).
+  - `_partials/head/site-title.html` — logo (optie 2c, `b▪ck▪n`) als inline SVG i.p.v. de
+    tekst-sitetitel; letters `currentColor`, blokjes `--link-color`. Paden uit DejaVu Sans Mono
+    Bold (vrije licentie; Menlo mag niet). Favicons in `static/` (`favicon.svg/.ico`,
+    `apple-touch-icon.png`, `icon-192/512.png`); `icon-512.png` is ook de `u-logo` in de h-card.
+  - `_partials/head/favicons.html` — SVG-favicon en `apple-touch-icon`.
   - `_partials/footer.html` — SimpleAnalytics-badge en IndieWeb Webring.
   - `_partials/post-info.html` — `author.name` en `p-category` (microformats).
   - `page.html` — klasse `post-card`.
