@@ -2,7 +2,7 @@
 // Eerst het netwerk (zo krijg je altijd de nieuwste versie), anders de kopie.
 // Verhoog VERSION als er een bestand bijkomt of wegvalt.
 
-const VERSION = "coach-timer-v3";
+const VERSION = "coach-timer-v4";
 const FILES = [
   "./", "index.html", "app.css", "manifest.webmanifest",
   "js/app.js", "js/model.js", "js/store.js", "js/drawing.js", "js/media.js",
