@@ -560,3 +560,35 @@ dialog.sheet .btn + .btn { margin-top: 8px; }
 .field-mode .f-progress { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
 .field-mode .f-progress circle { fill: none; stroke: #a7aea9; stroke-width: 3; stroke-dasharray: 0 100; }
 .field-mode .f-unlock.holding .f-progress circle { stroke-dasharray: 100 100; transition: stroke-dasharray 1.2s linear; }
+
+/* MARK: Tekeningen en foto's */
+
+.drawing { display: block; width: 100%; height: auto; border-radius: 12px; }
+.drawing .ring { fill: none; stroke: var(--switch); stroke-width: 0.45; stroke-dasharray: 1 0.6; }
+.drawing-card, .photo-card { padding: 8px; }
+.drawing-card { cursor: pointer; }
+.drawing-card.editor { cursor: crosshair; }
+.drawing-card.editor .drawing { touch-action: none; user-select: none; -webkit-user-select: none; max-height: 62vh; }
+.photo-card img { display: block; width: 100%; border-radius: 12px; min-height: 40px; background: var(--fill2); }
+
+.tools { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.tools button {
+  border: 0; background: var(--fill2); color: var(--text2); border-radius: 12px; padding: 8px 2px 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; font-weight: 700;
+}
+.tools button svg { width: 24px; height: 24px; }
+.tools button.on { background: var(--ink); color: var(--bg); }
+.tools button:disabled { opacity: 0.35; }
+.ctx { margin-top: 12px; min-height: 40px; }
+.ctx .label { margin: 0 4px 8px; }
+.ctx-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+.swatches button { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line); padding: 0; }
+.swatches button.on { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink); }
+.pill-btn {
+  border: 0; border-radius: 999px; padding: 8px 14px; background: var(--fill2); color: var(--ink);
+  font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;
+}
+.pill-btn svg { width: 16px; height: 16px; }
+.pill-btn.danger { color: var(--timeup); }
+.row.button:disabled { opacity: 0.4; }
