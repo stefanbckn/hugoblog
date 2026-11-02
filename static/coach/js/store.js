@@ -51,9 +51,10 @@ export function askPersistence() {
 
 // MARK: - Back-up
 
-export function backupBlob(state) {
+/** `media`: de foto's bij de blokken, als data-URL per nummer (zie media.js). */
+export function backupBlob(state, media = {}) {
   const data = { app: "coach-timer", version: 1, exportedAt: new Date().toISOString(),
-                 trainings: state.trainings, team: state.team, settings: state.settings };
+                 trainings: state.trainings, team: state.team, settings: state.settings, media };
   return new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
 }
 

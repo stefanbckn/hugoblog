@@ -2,10 +2,10 @@
 // Eerst het netwerk (zo krijg je altijd de nieuwste versie), anders de kopie.
 // Verhoog VERSION als er een bestand bijkomt of wegvalt.
 
-const VERSION = "coach-timer-v2";
+const VERSION = "coach-timer-v3";
 const FILES = [
   "./", "index.html", "app.css", "manifest.webmanifest",
-  "js/app.js", "js/model.js", "js/store.js",
+  "js/app.js", "js/model.js", "js/store.js", "js/drawing.js", "js/media.js",
   "icons/icon-192.png", "icons/icon-512.png", "icons/apple-touch-icon.png",
   "sounds/start.wav", "sounds/stop.wav", "sounds/warning.wav", "sounds/whistle.wav", "sounds/finish.wav",
 ];

@@ -8,6 +8,8 @@
 
 import * as M from "./model.js";
 import * as S from "./store.js";
+import * as D from "./drawing.js";
+import * as P from "./media.js";
 
 let state = S.loadState();
 let session = S.loadSession();
@@ -99,6 +101,7 @@ const I = {
   upload: '<path d="M12 16V5M7 10l5-5 5 5M5 20h14"/>',
   shirt: '<path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z" fill="currentColor" stroke="none"/>',
   checkCircle: '<circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.2"/>',
+  camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>',
 };
@@ -221,7 +224,9 @@ function render() {
     ploeg: viewSquad, speler: viewProfile, instellingen: viewSettings,
   };
   const view = views[r.name] ?? viewTrainings;
-  document.getElementById("view").innerHTML = view(r.parts);
+  const el = document.getElementById("view");
+  el.innerHTML = view(r.parts);
+  P.hydrate(el);
   const tab = { training: "trainingen", wedstrijd: "wedstrijden", speler: "ploeg" }[r.name] ?? r.name;
   for (const a of document.querySelectorAll(".tabs a")) a.classList.toggle("on", a.dataset.tab === tab);
 }
@@ -290,6 +295,7 @@ function blockBar(blocks) {
 function viewTraining(parts) {
   const t = state.trainings.find((x) => x.id === parts[1]);
   if (!t) return notFound("#/trainingen");
+  if (parts[2] === "blok" && parts[4] === "tekening") return viewDrawingEditor(t, parts[3]);
   if (parts[2] === "blok") return viewBlock(t, parts[3]);
 
   const move = (i, d) => { const [b] = t.blocks.splice(i, 1); t.blocks.splice(i + d, 0, b); };
@@ -390,6 +396,8 @@ function viewBlock(training, blockId) {
     </div>
     <p class="hint">Een signaal zoveel tijd voor het einde van elke rep of post. Zet op 0:00 om uit te schakelen.</p>
 
+    ${drawingAndPhoto(training, b)}
+
     <div class="section-label">Notities</div>
     <div class="list"><div class="row"><textarea class="field" rows="4" placeholder="Oefenstof, aandachtspunten…" ${bind((v) => (b.notes = v || null), true)}>${e(b.notes ?? "")}</textarea></div></div>
   </div>`;
@@ -450,6 +458,234 @@ function rotationEditor(plan) {
 function notFound(back) {
   return `<div class="page">${topbar({ back })}<div class="empty"><strong>Niet gevonden</strong>Dit bestaat niet (meer).</div></div>`;
 }
+
+// MARK: - Tekening en foto bij een blok
+
+/** Alle foto's waar nog een blok naar verwijst, ook in een lopende training. */
+const photoIds = () => [...state.trainings, ...(session ? [session.training] : [])]
+  .flatMap((t) => t.blocks.map((b) => b.photoId)).filter(Boolean);
+
+function drawingAndPhoto(training, b) {
+  const editor = `#/training/${training.id}/blok/${b.id}/tekening`;
+  const removeDrawing = async () => {
+    if (await ask({ title: "Tekening verwijderen?", ok: "Verwijderen", danger: true })) { b.drawing = null; save(); render(); }
+  };
+  const removePhoto = async () => {
+    if (await ask({ title: "Foto verwijderen?", ok: "Verwijderen", danger: true })) {
+      b.photoId = null;
+      save();
+      render();
+      P.prune(new Set(photoIds()));
+    }
+  };
+  return `<div class="section-label">Tekening</div>
+    ${D.hasDrawing(b) ? `<div class="card drawing-card" ${act(() => go(editor))}>${D.drawingSVG(b.drawing)}</div>` : ""}
+    <div class="list" ${D.hasDrawing(b) ? 'style="margin-top:12px"' : ""}>
+      <button class="row button" ${act(() => go(editor))}>${icon("pencil")}${D.hasDrawing(b) ? "Tekening aanpassen" : "Tekening maken"}</button>
+      ${D.hasDrawing(b) ? `<button class="row button danger" ${act(removeDrawing)}>${icon("trash")}Tekening verwijderen</button>` : ""}
+    </div>
+
+    <div class="section-label">Foto</div>
+    ${b.photoId ? `<div class="card photo-card"><img data-photo="${e(b.photoId)}" alt="Foto bij ${e(b.name)}"></div>` : ""}
+    <div class="list" ${b.photoId ? 'style="margin-top:12px"' : ""}>
+      <label class="row button" style="cursor:pointer">${icon("camera")}${b.photoId ? "Andere foto kiezen" : "Foto toevoegen"}
+        <input type="file" accept="image/*" hidden data-photo-for="${training.id}/${b.id}"></label>
+      ${b.photoId ? `<button class="row button danger" ${act(removePhoto)}>${icon("trash")}Foto verwijderen</button>` : ""}
+    </div>
+    <p class="hint">Een schets op papier of een oefening uit een boek: neem er een foto van. Je ziet hem tijdens de training bij dit blok.</p>`;
+}
+
+document.addEventListener("change", async (ev) => {
+  const input = ev.target.closest("input[data-photo-for]");
+  if (!input?.files?.length) return;
+  const [tid, bid] = input.dataset.photoFor.split("/");
+  const block = state.trainings.find((t) => t.id === tid)?.blocks.find((b) => b.id === bid);
+  if (!block) return;
+  try {
+    const blob = await P.compress(input.files[0]);
+    const id = M.uid();
+    await P.putPhoto(id, blob);
+    block.photoId = id;
+    save();
+    render();
+    P.prune(new Set(photoIds()));
+  } catch (err) {
+    toast(err.message || "Die foto kon ik niet bewaren.");
+  }
+});
+
+// MARK: - De tekeneditor
+
+const TOOLS = [
+  ["move", "Verplaats", '<path d="M12 3v18M3 12h18M12 3 9.5 5.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5"/>'],
+  ["player", "Speler", null],
+  ["ball", "Bal", '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/>'],
+  ["cone", "Kegel", '<path d="M12 4 18.5 19h-13z" fill="#FB8C00" stroke="none"/>'],
+  ["goal", "Doeltje", '<rect x="4" y="9" width="16" height="6" rx="1"/>'],
+  ["run", "Lopen", '<path d="M4 19 18 6M18 6h-6M18 6v6"/>'],
+  ["pass", "Pass", '<path d="M4 19 18 6" stroke-dasharray="2.5 2.5"/><path d="M18 6h-6M18 6v6"/>'],
+  ["dribble", "Dribbel", '<path d="M3 15c2-4 3 4 5 0s3 4 5 0 3 4 5 0"/><path d="M18 15l-3-2M18 15l-2 3"/>'],
+  ["erase", "Gum", '<path d="M8 20h12M5 15l8-8 5 5-6 6H8z"/>'],
+];
+
+const TOOL_HINTS = {
+  move: "Sleep een figuur om ze te verplaatsen. Tik erop om ze te kiezen.",
+  player: "Tik op het veld om een speler te zetten.",
+  ball: "Tik op het veld om een bal te zetten.",
+  cone: "Tik op het veld om een kegel te zetten.",
+  goal: "Tik op het veld om een doeltje te zetten. Draaien doe je met Verplaats.",
+  run: "Teken met je vinger hoe een speler loopt. Bijna recht wordt recht.",
+  pass: "Teken met je vinger waar de bal naartoe gaat.",
+  dribble: "Teken met je vinger waar een speler met de bal loopt.",
+  erase: "Tik op een figuur om ze weg te halen.",
+};
+
+/** Wat de editor onthoudt terwijl je tekent: gereedschap, keuze, en "terug". */
+const ed = { blockId: null, target: null, tool: "move", color: D.BIB_COLORS[1], selected: null, undo: [], drag: null, line: null };
+
+function viewDrawingEditor(training, blockId) {
+  const b = training.blocks.find((x) => x.id === blockId);
+  if (!b) return notFound(`#/training/${training.id}`);
+  b.drawing ??= { field: "half", items: [] };
+  if (ed.blockId !== b.id) Object.assign(ed, { blockId: b.id, selected: null, undo: [], tool: "move" });
+  ed.target = b.drawing;
+  const dr = b.drawing;
+  const sel = dr.items.find((i) => i.id === ed.selected);
+
+  const swatches = (current, pick) => `<div class="swatches">${D.BIB_COLORS.map((c) =>
+    `<button class="${c === current ? "on" : ""}" style="background:${c}" ${act(() => pick(c))} aria-label="Kleur"></button>`).join("")}</div>`;
+
+  let context;
+  if (ed.tool === "player") {
+    context = `<div class="label">Kleur van het hesje</div>${swatches(ed.color, (c) => (ed.color = c))}`;
+  } else if (ed.tool === "move" && sel) {
+    context = `<div class="ctx-row">
+      ${sel.type === "player" ? swatches(sel.color, (c) => { pushUndo(); sel.color = c; ed.color = c; }) : ""}
+      ${sel.type === "goal" ? `<button class="pill-btn" ${act(() => { pushUndo(); sel.rot = ((sel.rot ?? 0) + 45) % 180; })}>${icon("rotate")}Draaien</button>` : ""}
+      <button class="pill-btn danger" ${act(() => { pushUndo(); dr.items = dr.items.filter((i) => i !== sel); ed.selected = null; })}>${icon("trash")}Verwijderen</button>
+    </div>`;
+  } else {
+    context = `<p class="hint" style="margin:0">${TOOL_HINTS[ed.tool]}</p>`;
+  }
+
+  const clearAll = async () => {
+    if (await ask({ title: "Alles wissen?", ok: "Wissen", danger: true })) { pushUndo(); dr.items = []; ed.selected = null; save(); render(); }
+  };
+
+  return `<div class="page">
+    ${topbar({ back: `#/training/${training.id}/blok/${b.id}`, title: `Tekening · ${b.name}` })}
+    <div class="segmented">
+      <button class="${dr.field === "half" ? "on" : ""}" ${act(() => (dr.field = "half"))}>Half veld</button>
+      <button class="${dr.field === "full" ? "on" : ""}" ${act(() => (dr.field = "full"))}>Heel veld</button>
+    </div>
+    <div class="card drawing-card editor" style="margin-top:12px">${D.drawingSVG(dr, { selected: ed.selected, id: "draw-svg" })}</div>
+    <div class="tools" style="margin-top:12px">${TOOLS.map(([key, label, glyph]) => `<button class="${ed.tool === key ? "on" : ""}" ${act(() => { ed.tool = key; ed.selected = null; })}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${glyph ?? `<circle cx="12" cy="12" r="7" fill="${ed.color}" stroke="#fff" stroke-width="1.5"/>`}</svg>${label}</button>`).join("")}
+      <button ${act(undo)} ${ed.undo.length ? "" : "disabled"}>${icon("back")}Terug</button>
+    </div>
+    <div class="ctx">${context}</div>
+    <div class="list" style="margin-top:16px">
+      <button class="row button danger" ${act(clearAll)} ${dr.items.length ? "" : "disabled"}>${icon("trash")}Alles wissen</button>
+    </div>
+  </div>`;
+}
+
+function pushUndo() {
+  if (!ed.target) return;
+  ed.undo.push(JSON.stringify(ed.target.items));
+  if (ed.undo.length > 50) ed.undo.shift();
+}
+
+function undo() {
+  const prev = ed.undo.pop();
+  if (prev && ed.target) { ed.target.items = JSON.parse(prev); ed.selected = null; }
+}
+
+/** Tijdens het slepen of tekenen alleen de figuren opnieuw tekenen, niet de hele pagina. */
+function redrawItems() {
+  const g = document.getElementById("draw-svg-items");
+  if (g && ed.target) g.innerHTML = D.itemsSVG(ed.target, ed.selected);
+}
+
+function svgPoint(svg, ev) {
+  const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
+  const f = D.FIELDS[ed.target.field] ?? D.FIELDS.half;
+  return [Math.min(Math.max(p.x, -3), f.w + 3), Math.min(Math.max(p.y, -4), f.h + 4)];
+}
+
+document.addEventListener("pointerdown", (ev) => {
+  const svg = ev.target.closest("#draw-svg");
+  if (!svg || !ed.target) return;
+  ev.preventDefault();
+  svg.setPointerCapture(ev.pointerId);
+  const p = svgPoint(svg, ev);
+  const hit = ev.target.closest("[data-item]")?.dataset.item;
+  const tool = ed.tool;
+  if (tool === "move") {
+    ed.selected = hit ?? null;
+    if (hit) { pushUndo(); ed.drag = { id: hit, last: p, moved: false }; }
+    else render();
+  } else if (tool === "erase") {
+    if (hit) { pushUndo(); ed.target.items = ed.target.items.filter((i) => i.id !== hit); save(); render(); }
+  } else if (["player", "ball", "cone", "goal"].includes(tool)) {
+    pushUndo();
+    const item = { id: M.uid(), type: tool, x: p[0], y: p[1] };
+    if (tool === "player") item.color = ed.color;
+    if (tool === "goal") item.rot = 0;
+    ed.target.items.push(item);
+    ed.drag = { id: item.id, last: p, moved: true };
+  } else {
+    pushUndo();
+    ed.line = { id: M.uid(), type: "line", style: tool, points: [p] };
+    ed.target.items.push(ed.line);
+  }
+  redrawItems();
+});
+
+document.addEventListener("pointermove", (ev) => {
+  if (!ed.drag && !ed.line) return;
+  const svg = document.getElementById("draw-svg");
+  if (!svg) return;
+  const p = svgPoint(svg, ev);
+  if (ed.drag) {
+    const item = ed.target.items.find((i) => i.id === ed.drag.id);
+    const [dx, dy] = [p[0] - ed.drag.last[0], p[1] - ed.drag.last[1]];
+    if (!item || (dx === 0 && dy === 0)) return;
+    if (item.type === "line") item.points = item.points.map(([x, y]) => [x + dx, y + dy]);
+    else { item.x += dx; item.y += dy; }
+    ed.drag.last = p;
+    ed.drag.moved = true;
+  } else {
+    const pts = ed.line.points, last = pts[pts.length - 1];
+    if (Math.hypot(p[0] - last[0], p[1] - last[1]) > 0.4) pts.push(p);
+  }
+  redrawItems();
+});
+
+/** Loslaten: een te korte lijn telt niet, een getekende lijn wordt opgekuist. */
+function endDrawing() {
+  if (!ed.drag && !ed.line) return;
+  if (ed.line) {
+    if (D.lineLength(ed.line.points) < 2) {
+      ed.target.items = ed.target.items.filter((i) => i !== ed.line);
+      ed.undo.pop();
+    } else {
+      ed.line.points = D.finishLine(ed.line.points);
+    }
+  }
+  if (ed.drag && !ed.drag.moved) ed.undo.pop(); // alleen gekozen, niet verplaatst
+  const r = (n) => Math.round(n * 10) / 10;
+  for (const item of ed.target.items) {
+    if (item.type === "line") item.points = item.points.map(([x, y]) => [r(x), r(y)]);
+    else { item.x = r(item.x); item.y = r(item.y); }
+  }
+  ed.drag = null;
+  ed.line = null;
+  save();
+  render();
+}
+document.addEventListener("pointerup", endDrawing);
+document.addEventListener("pointercancel", endDrawing);
 
 // MARK: - Wedstrijden
 
@@ -931,8 +1167,8 @@ function viewSettings() {
   const shirtPicker = (key) => `<div class="shirts">${Object.keys(M.TEAM_COLORS).map((c) =>
     `<button class="${team()[key] === c ? "on" : ""}" style="color:${M.TEAM_COLORS[c]}" ${act(() => (team()[key] = c))} aria-label="${M.colorName(c)}">${icon("shirt")}</button>`).join("")}</div>`;
 
-  const exportBackup = () => {
-    const url = URL.createObjectURL(S.backupBlob(state));
+  const exportBackup = async () => {
+    const url = URL.createObjectURL(S.backupBlob(state, await P.exportPhotos(photoIds())));
     const a = document.createElement("a");
     a.href = url;
     a.download = S.backupFileName();
@@ -941,6 +1177,8 @@ function viewSettings() {
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     state.lastBackup = new Date().toISOString();
+    save();
+    render();
   };
 
   const install = async () => {
@@ -998,6 +1236,7 @@ document.addEventListener("change", async (ev) => {
         ok: "Inladen", danger: true,
       }))) continue;
       toast(S.applyImport(state, json));
+      if (json?.media) await P.importPhotos(json.media);
       save();
     } catch (err) {
       toast(err instanceof SyntaxError ? `${file.name} is geen geldig JSON-bestand.` : err.message);
@@ -1192,6 +1431,8 @@ function renderSession(now, key) {
       ${ringHTML(now, block)}
       ${block.timer.type === "rotation" ? stationsHTML(block.timer.plan) : ""}
       ${match ? matchInfo(match, now) : nextHint(block)}
+      ${D.hasDrawing(block) ? `<div class="card drawing-card">${D.drawingSVG(block.drawing)}</div>` : ""}
+      ${block.photoId ? `<div class="card photo-card"><img data-photo="${e(block.photoId)}" alt="Foto bij ${e(block.name)}"></div>` : ""}
       ${block.notes ? `<div class="card notes">${e(block.notes)}</div>` : ""}
     </div>
     <div class="s-controls">
@@ -1200,6 +1441,7 @@ function renderSession(now, key) {
       <button class="round-btn ${s.phase === "waiting" ? "alert" : ""}" ${sAct(() => { M.next(s); signal(s.phase); })} aria-label="Volgende: ${e(M.nextStepDescription(s))}">${icon("next")}</button>
     </div>`;
   scope = reg.v;
+  P.hydrate(el);
   updateDynamic(now);
 }
 
@@ -1440,6 +1682,7 @@ document.addEventListener("pointerdown", () => { if (session) unlockAudio(); }, 
 
 S.askPersistence();
 render();
+P.prune(new Set(photoIds()));
 if (session) openSession();
 
 if ("serviceWorker" in navigator && location.protocol !== "file:") {
