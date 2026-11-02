@@ -59,6 +59,14 @@ function halfPitch() {
 export const BIB_COLORS = ["#E53935", "#1E88E5", "#FDD835", "#43A047", "#FB8C00", "#8E24AA", "#FFFFFF", "#212121"];
 
 function itemSVG(item, s, selected) {
+  if (item.type === "line") return lineSVG(item, s, selected);
+  // Een onzichtbare zone rond elke figuur: je kunt ernaast drukken en ze
+  // toch verslepen, zodat je vinger er niet bovenop staat.
+  const grab = `<circle cx="${item.x}" cy="${item.y}" r="${4.5 * s}" fill="transparent"/>`;
+  return pointSVG(item, s, selected).replace(/^<g([^>]*)>/, `<g$1>${grab}`);
+}
+
+function pointSVG(item, s, selected) {
   const sel = selected ? ' class="sel"' : "";
   const tag = `data-item="${item.id}"`;
   switch (item.type) {
@@ -81,16 +89,26 @@ function itemSVG(item, s, selected) {
         <rect x="${item.x - w / 2 - 1}" y="${item.y - d / 2 - 1}" width="${w + 2}" height="${d + 2}" fill="transparent"/>
         ${selected ? `<rect x="${item.x - w / 2 - 1}" y="${item.y - d / 2 - 1}" width="${w + 2}" height="${d + 2}" class="ring"/>` : ""}</g>`;
     }
-    case "line":
-      return lineSVG(item, s, selected);
   }
   return "";
+}
+
+/** Waar de kegels van een kegelrij komen: om de ongeveer 4 meter (hooguit 12), de uiteinden inbegrepen. */
+export function rowPositions(a, b) {
+  const n = Math.min(12, Math.max(2, Math.round(dist(a, b) / 4) + 1));
+  return Array.from({ length: n }, (_, i) => [a[0] + ((b[0] - a[0]) * i) / (n - 1), a[1] + ((b[1] - a[1]) * i) / (n - 1)]);
 }
 
 /** Een pijl: doorgetrokken (lopen), stippel (pass) of golvend (dribbel). */
 function lineSVG(item, s, selected) {
   const pts = item.points;
   if (pts.length < 2) return "";
+  if (item.style === "row") {
+    // Nog aan het trekken: een stippellijn met de kegels die er zullen komen.
+    const [a, b] = [pts[0], pts[pts.length - 1]];
+    return `<g><path d="M${r1(a[0])} ${r1(a[1])}L${r1(b[0])} ${r1(b[1])}" stroke="var(--switch)" stroke-width="${0.3 * s}" stroke-dasharray="${0.8 * s} ${0.6 * s}"/>
+      ${rowPositions(a, b).map(([x, y]) => pointSVG({ type: "cone", x, y }, s, false)).join("")}</g>`;
+  }
   const width = 0.45 * s;
   const head = 1.6 * s;
   // De lijn stopt waar de pijlpunt begint.
@@ -207,16 +225,42 @@ export const lineLength = pathLength;
 
 // MARK: - Alles samen
 
-export function drawingSVG(drawing, { selected = null, id = "" } = {}) {
+export function drawingSVG(drawing, { selected = null, id = "", viewBox = null, guides = [] } = {}) {
   const field = FIELDS[drawing.field] ?? FIELDS.half;
   const lines = drawing.items.filter((i) => i.type === "line");
   const rest = drawing.items.filter((i) => i.type !== "line");
   // Lijnen onder de spelers, zodat je een speler altijd kunt vastpakken.
   const items = [...lines, ...rest].map((i) => itemSVG(i, field.scale, i.id === selected)).join("");
-  return `<svg class="drawing" ${id ? `id="${id}"` : ""} viewBox="${field.vb}" preserveAspectRatio="xMidYMid meet" aria-label="Tekening">
+  return `<svg class="drawing" ${id ? `id="${id}"` : ""} viewBox="${viewBox ?? field.vb}" preserveAspectRatio="xMidYMid meet" aria-label="Tekening">
     ${drawing.field === "full" ? fullPitch() : halfPitch()}
     <g id="${id ? `${id}-items` : ""}">${items}</g>
+    <g id="${id ? `${id}-guides` : ""}">${guidesSVG(drawing, guides)}</g>
   </svg>`;
+}
+
+/** Oranje hulplijnen tijdens het slepen: {x} verticaal, {y} horizontaal. */
+export function guidesSVG(drawing, guides) {
+  const f = FIELDS[drawing.field] ?? FIELDS.half;
+  const style = `stroke="var(--switch)" stroke-width="${0.25 * f.scale}" stroke-dasharray="${0.8 * f.scale} ${0.5 * f.scale}"`;
+  return guides.map((g) => g.x != null
+    ? `<path d="M${g.x} -5V${f.h + 5}" ${style}/>`
+    : `<path d="M-4 ${g.y}H${f.w + 4}" ${style}/>`).join("");
+}
+
+/**
+ * Laat een figuur op dezelfde lijn springen als een andere figuur, als ze er
+ * bijna op staat. Geeft de nieuwe plek en de hulplijnen om te tonen.
+ */
+export function snap(drawing, item, x, y) {
+  const s = (FIELDS[drawing.field] ?? FIELDS.half).scale;
+  const near = 0.9 * s;
+  const others = drawing.items.filter((i) => i !== item && i.type !== "line");
+  const guides = [];
+  const bx = others.reduce((best, o) => (Math.abs(o.x - x) < (best ? Math.abs(best.x - x) : near) ? o : best), null);
+  const by = others.reduce((best, o) => (Math.abs(o.y - y) < (best ? Math.abs(best.y - y) : near) ? o : best), null);
+  if (bx) { x = bx.x; guides.push({ x }); }
+  if (by) { y = by.y; guides.push({ y }); }
+  return { x, y, guides };
 }
 
 export const itemsSVG = (drawing, selected) => {

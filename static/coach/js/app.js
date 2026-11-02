@@ -101,6 +101,7 @@ const I = {
   upload: '<path d="M12 16V5M7 10l5-5 5 5M5 20h14"/>',
   shirt: '<path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3a4 4 0 0 1-8 0z" fill="currentColor" stroke="none"/>',
   checkCircle: '<circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.2"/>',
+  expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
   camera: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
   lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
   home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/>',
@@ -525,11 +526,12 @@ const TOOLS = [
   ["run", "Lopen", '<path d="M4 19 18 6M18 6h-6M18 6v6"/>'],
   ["pass", "Pass", '<path d="M4 19 18 6" stroke-dasharray="2.5 2.5"/><path d="M18 6h-6M18 6v6"/>'],
   ["dribble", "Dribbel", '<path d="M3 15c2-4 3 4 5 0s3 4 5 0 3 4 5 0"/><path d="M18 15l-3-2M18 15l-2 3"/>'],
+  ["row", "Kegelrij", '<path d="M5 9 7.5 14h-5zM12 9l2.5 5h-5zM19 9l2.5 5h-5z" fill="#FB8C00" stroke="none"/><path d="M3 18h18" stroke-dasharray="2 2"/>'],
   ["erase", "Gum", '<path d="M8 20h12M5 15l8-8 5 5-6 6H8z"/>'],
 ];
 
 const TOOL_HINTS = {
-  move: "Sleep een figuur om ze te verplaatsen. Tik erop om ze te kiezen.",
+  move: "Sleep een figuur om ze te verplaatsen; net ernaast drukken mag ook. Tik erop om ze te kiezen. Knijp met twee vingers om in te zoomen.",
   player: "Tik op het veld om een speler te zetten.",
   ball: "Tik op het veld om een bal te zetten.",
   cone: "Tik op het veld om een kegel te zetten.",
@@ -537,17 +539,22 @@ const TOOL_HINTS = {
   run: "Teken met je vinger hoe een speler loopt. Bijna recht wordt recht.",
   pass: "Teken met je vinger waar de bal naartoe gaat.",
   dribble: "Teken met je vinger waar een speler met de bal loopt.",
+  row: "Trek een lijn: er komen kegels op. Het aantal pas je daarna aan.",
   erase: "Tik op een figuur om ze weg te halen.",
 };
 
 /** Wat de editor onthoudt terwijl je tekent: gereedschap, keuze, en "terug". */
-const ed = { blockId: null, target: null, tool: "move", color: D.BIB_COLORS[1], selected: null, undo: [], drag: null, line: null };
+const ed = {
+  blockId: null, target: null, tool: "move", color: D.BIB_COLORS[1], selected: null, undo: [],
+  drag: null, line: null, guides: [], lastRow: null,
+  view: null, pan: null, pinch: null,   // ingezoomd: welk stuk van het veld je ziet
+};
 
 function viewDrawingEditor(training, blockId) {
   const b = training.blocks.find((x) => x.id === blockId);
   if (!b) return notFound(`#/training/${training.id}`);
   b.drawing ??= { field: "half", items: [] };
-  if (ed.blockId !== b.id) Object.assign(ed, { blockId: b.id, selected: null, undo: [], tool: "move" });
+  if (ed.blockId !== b.id) Object.assign(ed, { blockId: b.id, selected: null, undo: [], tool: "move", view: null, lastRow: null });
   ed.target = b.drawing;
   const dr = b.drawing;
   const sel = dr.items.find((i) => i.id === ed.selected);
@@ -555,8 +562,24 @@ function viewDrawingEditor(training, blockId) {
   const swatches = (current, pick) => `<div class="swatches">${D.BIB_COLORS.map((c) =>
     `<button class="${c === current ? "on" : ""}" style="background:${c}" ${act(() => pick(c))} aria-label="Kleur"></button>`).join("")}</div>`;
 
+  // De laatst getrokken kegelrij: het aantal kegels kun je nog aanpassen.
+  const row = ed.tool === "row" && ed.lastRow && ed.lastRow.ids.every((id) => dr.items.some((i) => i.id === id)) ? ed.lastRow : null;
+  const setRowCount = (n) => {
+    pushUndo();
+    dr.items = dr.items.filter((i) => !row.ids.includes(i.id));
+    const cones = Array.from({ length: n }, (_, i) => ({
+      id: M.uid(), type: "cone",
+      x: Math.round((row.a[0] + ((row.b[0] - row.a[0]) * i) / (n - 1)) * 10) / 10,
+      y: Math.round((row.a[1] + ((row.b[1] - row.a[1]) * i) / (n - 1)) * 10) / 10,
+    }));
+    dr.items.push(...cones);
+    row.ids = cones.map((c) => c.id);
+  };
+
   let context;
-  if (ed.tool === "player") {
+  if (row) {
+    context = `<div class="ctx-row"><span class="grow">Kegels in deze rij</span>${stepper(row.ids.length, 2, 30, setRowCount)}</div>`;
+  } else if (ed.tool === "player") {
     context = `<div class="label">Kleur van het hesje</div>${swatches(ed.color, (c) => (ed.color = c))}`;
   } else if (ed.tool === "move" && sel) {
     context = `<div class="ctx-row">
@@ -575,10 +598,17 @@ function viewDrawingEditor(training, blockId) {
   return `<div class="page">
     ${topbar({ back: `#/training/${training.id}/blok/${b.id}`, title: `Tekening · ${b.name}` })}
     <div class="segmented">
-      <button class="${dr.field === "half" ? "on" : ""}" ${act(() => (dr.field = "half"))}>Half veld</button>
-      <button class="${dr.field === "full" ? "on" : ""}" ${act(() => (dr.field = "full"))}>Heel veld</button>
+      <button class="${dr.field === "half" ? "on" : ""}" ${act(() => { dr.field = "half"; ed.view = null; })}>Half veld</button>
+      <button class="${dr.field === "full" ? "on" : ""}" ${act(() => { dr.field = "full"; ed.view = null; })}>Heel veld</button>
     </div>
-    <div class="card drawing-card editor" style="margin-top:12px">${D.drawingSVG(dr, { selected: ed.selected, id: "draw-svg" })}</div>
+    <div class="card drawing-card editor" style="margin-top:12px">
+      ${D.drawingSVG(dr, { selected: ed.selected, id: "draw-svg", viewBox: viewBoxOf(dr) })}
+      <div class="zoom-btns">
+        <button ${act(() => zoomBy(1.6))} aria-label="Inzoomen">${icon("plus")}</button>
+        <button ${act(() => zoomBy(1 / 1.6))} ${ed.view ? "" : "disabled"} aria-label="Uitzoomen">${icon("minus")}</button>
+        ${ed.view ? `<button ${act(() => (ed.view = null))} aria-label="Heel veld tonen">${icon("expand")}</button>` : ""}
+      </div>
+    </div>
     <div class="tools" style="margin-top:12px">${TOOLS.map(([key, label, glyph]) => `<button class="${ed.tool === key ? "on" : ""}" ${act(() => { ed.tool = key; ed.selected = null; })}>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${glyph ?? `<circle cx="12" cy="12" r="7" fill="${ed.color}" stroke="#fff" stroke-width="1.5"/>`}</svg>${label}</button>`).join("")}
       <button ${act(undo)} ${ed.undo.length ? "" : "disabled"}>${icon("back")}Terug</button>
@@ -603,28 +633,99 @@ function undo() {
 
 /** Tijdens het slepen of tekenen alleen de figuren opnieuw tekenen, niet de hele pagina. */
 function redrawItems() {
+  if (!ed.target) return;
   const g = document.getElementById("draw-svg-items");
-  if (g && ed.target) g.innerHTML = D.itemsSVG(ed.target, ed.selected);
+  if (g) g.innerHTML = D.itemsSVG(ed.target, ed.selected);
+  const guides = document.getElementById("draw-svg-guides");
+  if (guides) guides.innerHTML = D.guidesSVG(ed.target, ed.guides);
 }
 
+// MARK: Zoomen
+
+const baseView = (dr) => (D.FIELDS[dr.field] ?? D.FIELDS.half).vb.split(" ").map(Number);
+const viewBoxOf = (dr) => (ed.view ?? baseView(dr)).map((n) => Math.round(n * 100) / 100).join(" ");
+
+/** Toon dit stuk van het veld: nooit groter dan het hele veld, nooit meer dan 5 keer ingezoomd. */
+function setView([x, y, w]) {
+  const base = baseView(ed.target);
+  w = Math.min(base[2], Math.max(base[2] / 5, w));
+  const h = (w * base[3]) / base[2];
+  x = Math.min(base[0] + base[2] - w, Math.max(base[0], x));
+  y = Math.min(base[1] + base[3] - h, Math.max(base[1], y));
+  ed.view = w >= base[2] - 0.01 ? null : [x, y, w, h];
+  document.getElementById("draw-svg")?.setAttribute("viewBox", viewBoxOf(ed.target));
+}
+
+function zoomBy(factor) {
+  const v = ed.view ?? baseView(ed.target);
+  const w = v[2] / factor, h = v[3] / factor;
+  setView([v[0] + (v[2] - w) / 2, v[1] + (v[3] - h) / 2, w, h]);
+}
+
+/** Schermpunt → veldmeters, zonder begrenzing. */
+function toField(svg, x, y) {
+  const p = new DOMPoint(x, y).matrixTransform(svg.getScreenCTM().inverse());
+  return [p.x, p.y];
+}
+
+/** Schuif het beeld zodat veldpunt `fieldPt` weer onder schermpunt `screenPt` ligt. */
+function keepUnder(svg, fieldPt, screenPt) {
+  const now = toField(svg, ...screenPt);
+  const v = ed.view ?? baseView(ed.target);
+  setView([v[0] + fieldPt[0] - now[0], v[1] + fieldPt[1] - now[1], v[2]]);
+}
+
+// MARK: Vingers
+
 function svgPoint(svg, ev) {
-  const p = new DOMPoint(ev.clientX, ev.clientY).matrixTransform(svg.getScreenCTM().inverse());
+  const [x, y] = toField(svg, ev.clientX, ev.clientY);
   const f = D.FIELDS[ed.target.field] ?? D.FIELDS.half;
-  return [Math.min(Math.max(p.x, -3), f.w + 3), Math.min(Math.max(p.y, -4), f.h + 4)];
+  return [Math.min(Math.max(x, -3), f.w + 3), Math.min(Math.max(y, -4), f.h + 4)];
+}
+
+const fingers = new Map();
+const midpoint = () => { const [a, b] = [...fingers.values()]; return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; };
+const spread = () => { const [a, b] = [...fingers.values()]; return Math.hypot(a[0] - b[0], a[1] - b[1]); };
+
+/** Een tweede vinger: wat de eerste begon (figuur zetten, lijn trekken) telt niet, we gaan zoomen. */
+function cancelAction() {
+  if (ed.line || ed.drag) {
+    const prev = ed.undo.pop();
+    if (prev) ed.target.items = JSON.parse(prev);
+  }
+  ed.line = null;
+  ed.drag = null;
+  ed.pan = null;
+  ed.guides = [];
 }
 
 document.addEventListener("pointerdown", (ev) => {
   const svg = ev.target.closest("#draw-svg");
   if (!svg || !ed.target) return;
   ev.preventDefault();
-  svg.setPointerCapture(ev.pointerId);
+  try { svg.setPointerCapture(ev.pointerId); } catch { /* niet erg */ }
+  fingers.set(ev.pointerId, [ev.clientX, ev.clientY]);
+  if (fingers.size === 2) {
+    cancelAction();
+    const mid = midpoint();
+    ed.pinch = { spread: spread(), width: (ed.view ?? baseView(ed.target))[2], field: toField(svg, ...mid) };
+    redrawItems();
+    return;
+  }
+  if (fingers.size > 2 || ed.pinch) return;
+
   const p = svgPoint(svg, ev);
   const hit = ev.target.closest("[data-item]")?.dataset.item;
   const tool = ed.tool;
   if (tool === "move") {
     ed.selected = hit ?? null;
-    if (hit) { pushUndo(); ed.drag = { id: hit, last: p, moved: false }; }
-    else render();
+    if (hit) {
+      pushUndo();
+      const item = ed.target.items.find((i) => i.id === hit);
+      ed.drag = { id: hit, last: p, moved: false, raw: [item.x, item.y] };
+    } else {
+      ed.pan = { field: toField(svg, ev.clientX, ev.clientY), moved: false };
+    }
   } else if (tool === "erase") {
     if (hit) { pushUndo(); ed.target.items = ed.target.items.filter((i) => i.id !== hit); save(); render(); }
   } else if (["player", "ball", "cone", "goal"].includes(tool)) {
@@ -632,8 +733,11 @@ document.addEventListener("pointerdown", (ev) => {
     const item = { id: M.uid(), type: tool, x: p[0], y: p[1] };
     if (tool === "player") item.color = ed.color;
     if (tool === "goal") item.rot = 0;
+    const snapped = D.snap(ed.target, item, item.x, item.y);
+    Object.assign(item, { x: snapped.x, y: snapped.y });
+    ed.guides = snapped.guides;
     ed.target.items.push(item);
-    ed.drag = { id: item.id, last: p, moved: true };
+    ed.drag = { id: item.id, last: p, moved: true, raw: [p[0], p[1]] };
   } else {
     pushUndo();
     ed.line = { id: M.uid(), type: "line", style: tool, points: [p] };
@@ -643,18 +747,40 @@ document.addEventListener("pointerdown", (ev) => {
 });
 
 document.addEventListener("pointermove", (ev) => {
-  if (!ed.drag && !ed.line) return;
+  if (!fingers.has(ev.pointerId)) return;
+  fingers.set(ev.pointerId, [ev.clientX, ev.clientY]);
   const svg = document.getElementById("draw-svg");
-  if (!svg) return;
+  if (!svg || !ed.target) return;
+
+  if (ed.pinch) {
+    if (fingers.size !== 2) return;
+    setView([0, 0, (ed.pinch.width * ed.pinch.spread) / spread()]);
+    keepUnder(svg, ed.pinch.field, midpoint());
+    return;
+  }
+  if (ed.pan) {
+    keepUnder(svg, ed.pan.field, [ev.clientX, ev.clientY]);
+    ed.pan.moved = true;
+    return;
+  }
+  if (!ed.drag && !ed.line) return;
   const p = svgPoint(svg, ev);
   if (ed.drag) {
     const item = ed.target.items.find((i) => i.id === ed.drag.id);
     const [dx, dy] = [p[0] - ed.drag.last[0], p[1] - ed.drag.last[1]];
     if (!item || (dx === 0 && dy === 0)) return;
-    if (item.type === "line") item.points = item.points.map(([x, y]) => [x + dx, y + dy]);
-    else { item.x += dx; item.y += dy; }
     ed.drag.last = p;
     ed.drag.moved = true;
+    if (item.type === "line") {
+      item.points = item.points.map(([x, y]) => [x + dx, y + dy]);
+    } else {
+      // De figuur volgt de beweging van je vinger, en springt op één lijn met een andere als ze er bijna op staat.
+      ed.drag.raw = [ed.drag.raw[0] + dx, ed.drag.raw[1] + dy];
+      const snapped = D.snap(ed.target, item, ...ed.drag.raw);
+      item.x = snapped.x;
+      item.y = snapped.y;
+      ed.guides = snapped.guides;
+    }
   } else {
     const pts = ed.line.points, last = pts[pts.length - 1];
     if (Math.hypot(p[0] - last[0], p[1] - last[1]) > 0.4) pts.push(p);
@@ -662,15 +788,39 @@ document.addEventListener("pointermove", (ev) => {
   redrawItems();
 });
 
-/** Loslaten: een te korte lijn telt niet, een getekende lijn wordt opgekuist. */
+function fingerUp(ev) {
+  if (!fingers.delete(ev.pointerId)) return;
+  if (ed.pinch) {
+    if (fingers.size === 0) ed.pinch = null; // pas verder als alle vingers los zijn
+    return;
+  }
+  if (ed.pan) {
+    const tapped = !ed.pan.moved;
+    ed.pan = null;
+    if (tapped) render(); // tik naast de figuren: niets meer gekozen
+    return;
+  }
+  endDrawing();
+}
+document.addEventListener("pointerup", fingerUp);
+document.addEventListener("pointercancel", fingerUp);
+
+/** Loslaten: een te korte lijn telt niet, een getekende lijn wordt opgekuist, een kegelrij wordt kegels. */
 function endDrawing() {
   if (!ed.drag && !ed.line) return;
   if (ed.line) {
-    if (D.lineLength(ed.line.points) < 2) {
-      ed.target.items = ed.target.items.filter((i) => i !== ed.line);
+    const line = ed.line;
+    ed.target.items = ed.target.items.filter((i) => i !== line);
+    if (D.lineLength(line.points) < 2) {
       ed.undo.pop();
+    } else if (line.style === "row") {
+      const [a, b] = [line.points[0], line.points[line.points.length - 1]];
+      const cones = D.rowPositions(a, b).map(([x, y]) => ({ id: M.uid(), type: "cone", x, y }));
+      ed.target.items.push(...cones);
+      ed.lastRow = { a, b, ids: cones.map((c) => c.id) };
     } else {
-      ed.line.points = D.finishLine(ed.line.points);
+      line.points = D.finishLine(line.points);
+      ed.target.items.push(line);
     }
   }
   if (ed.drag && !ed.drag.moved) ed.undo.pop(); // alleen gekozen, niet verplaatst
@@ -681,11 +831,10 @@ function endDrawing() {
   }
   ed.drag = null;
   ed.line = null;
+  ed.guides = [];
   save();
   render();
 }
-document.addEventListener("pointerup", endDrawing);
-document.addEventListener("pointercancel", endDrawing);
 
 // MARK: - Wedstrijden
 
