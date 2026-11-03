@@ -4,3 +4,14 @@ HUGO_VERSION = "0.160.1"
 [build]
 publish = "public"
 command = "hugo --gc --minify"
+# Coach Timer is verhuisd naar een eigen site (repo stefanbckn/coach-timer).
+# Niet geforceerd: /coach/sw.js bestaat nog en ruimt de oude offline-kopie op.
+[[redirects]]
+from = "/coach"
+to = "https://coach.bckn.be/"
+status = 301
+
+[[redirects]]
+from = "/coach/*"
+to = "https://coach.bckn.be/:splat"
+status = 301
