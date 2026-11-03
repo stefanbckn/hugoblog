@@ -41,9 +41,9 @@ url = "/huiswerkbladen/"
 weight = 3
 
 [[menu.main]]
-identifier = "opstelling"
-name = "Opstelling & Wissels"
-url = "/opstelling/"
+identifier = "coach"
+name = "Coach"
+url = "https://coach.bckn.be/"
 weight = 4
 
 [[menu.main]]
